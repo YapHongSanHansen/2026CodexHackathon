@@ -1,0 +1,14 @@
+# ToolForge MCP server for OpenAI Codex.
+# Copy this block into  ~/.codex/config.toml  (create the file if it doesn't exist).
+# Replace the two paths with YOUR absolute paths (use the .venv python from setup.ps1).
+#
+# Docs: https://developers.openai.com/codex/mcp
+
+[mcp_servers.toolforge]
+command = "C:/Users/yapho/CodexHackathon/toolforge/.venv/Scripts/python.exe"
+args = ["C:/Users/yapho/CodexHackathon/toolforge/mcp_server.py"]
+# The server needs NO OpenAI key — it only replays recorded tools.
+# (If you skipped the venv, set command = "python" instead.)
+
+# CLI alternative (does the same thing):
+#   codex mcp add toolforge -- "C:/Users/yapho/CodexHackathon/toolforge/.venv/Scripts/python.exe" "C:/Users/yapho/CodexHackathon/toolforge/mcp_server.py"

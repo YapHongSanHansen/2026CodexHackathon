@@ -1,0 +1,55 @@
+<svg viewBox="0 0 960 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, system-ui, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2dd4bf"/>
+    </marker>
+  </defs>
+  <rect width="960" height="300" rx="16" fill="#0d1424"/>
+  <text x="480" y="44" text-anchor="middle" fill="#e2e8f0" font-size="24" font-weight="700">How one tool is made &amp; used</text>
+
+  <!-- 5 steps -->
+  <!-- box template: w=150 h=96 y=92 -->
+  <g>
+    <rect x="20"  y="92" width="150" height="96" rx="12" fill="#131c30" stroke="#26344f"/>
+    <text x="36" y="118" fill="#5eead4" font-size="14" font-weight="700">1</text>
+    <text x="95" y="138" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Record</text>
+    <text x="95" y="162" text-anchor="middle" fill="#94a3b8" font-size="12">do the task once</text>
+    <text x="95" y="210" text-anchor="middle" fill="#5eead4" font-size="12">vision model sees screen</text>
+  </g>
+  <g>
+    <rect x="206" y="92" width="150" height="96" rx="12" fill="#131c30" stroke="#26344f"/>
+    <text x="222" y="118" fill="#5eead4" font-size="14" font-weight="700">2</text>
+    <text x="281" y="138" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Synthesize</text>
+    <text x="281" y="162" text-anchor="middle" fill="#94a3b8" font-size="12">steps &#8594; typed tool</text>
+    <text x="281" y="210" text-anchor="middle" fill="#5eead4" font-size="12">text model</text>
+  </g>
+  <g>
+    <rect x="392" y="92" width="150" height="96" rx="12" fill="#10261f" stroke="#14b8a6" stroke-width="2"/>
+    <text x="408" y="118" fill="#5eead4" font-size="14" font-weight="700">3</text>
+    <text x="467" y="138" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Serve</text>
+    <text x="467" y="162" text-anchor="middle" fill="#94a3b8" font-size="12">REST + MCP</text>
+    <text x="467" y="210" text-anchor="middle" fill="#5eead4" font-size="12">no model needed</text>
+  </g>
+  <g>
+    <rect x="578" y="92" width="150" height="96" rx="12" fill="#131c30" stroke="#26344f"/>
+    <text x="594" y="118" fill="#5eead4" font-size="14" font-weight="700">4</text>
+    <text x="653" y="138" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700">Agent calls</text>
+    <text x="653" y="162" text-anchor="middle" fill="#94a3b8" font-size="12">"make an invoice"</text>
+    <text x="653" y="210" text-anchor="middle" fill="#5eead4" font-size="12">Codex / Cursor</text>
+  </g>
+  <g>
+    <rect x="764" y="92" width="170" height="96" rx="12" fill="#2a1d10" stroke="#f59e0b"/>
+    <text x="780" y="118" fill="#fbbf24" font-size="14" font-weight="700">5</text>
+    <text x="849" y="138" text-anchor="middle" fill="#fbbf24" font-size="18" font-weight="700">Replay</text>
+    <text x="849" y="162" text-anchor="middle" fill="#cbd5e1" font-size="12">runs on the real app</text>
+    <text x="849" y="210" text-anchor="middle" fill="#fbbf24" font-size="12">controls mouse/keys</text>
+  </g>
+
+  <!-- arrows -->
+  <line x1="172" y1="140" x2="204" y2="140" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="358" y1="140" x2="390" y2="140" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="544" y1="140" x2="576" y2="140" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="730" y1="140" x2="762" y2="140" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <text x="480" y="262" text-anchor="middle" fill="#94a3b8" font-size="13.5">Study the app ONCE &#8594; a durable, named tool — not a brittle script. Re-record after a UI change and it still works.</text>
+</svg>

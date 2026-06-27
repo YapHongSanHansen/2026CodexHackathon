@@ -1,0 +1,11 @@
+{
+  "name": "toolforge-dev",
+  "owner": { "name": "ToolForge" },
+  "plugins": [
+    {
+      "name": "toolforge",
+      "source": "./",
+      "description": "ToolForge: legacy desktop app -> callable MCP tools."
+    }
+  ]
+}

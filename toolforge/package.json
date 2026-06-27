@@ -1,0 +1,17 @@
+{
+  "name": "toolforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ToolForge — turn legacy software with no API/docs/source into a callable REST API + MCP server via a 4-group AI-agent pipeline.",
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "dev": "concurrently -n SERVER,CLIENT -c blue,magenta \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "mcp": "npm run mcp -w server --",
+    "build": "npm run build -w client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
