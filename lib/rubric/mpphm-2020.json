@@ -1,0 +1,112 @@
+{
+  "standard": "MPPHM 2020 (Manual Prosedur Pensijilan Halal Malaysia)",
+  "evidenceCategories": [
+    { "id": "business_profile", "label": "Business Profile / SSM Registration" },
+    { "id": "menu_list", "label": "Menu List" },
+    { "id": "ingredient_list", "label": "Ingredient List" },
+    { "id": "supplier_certificate", "label": "Supplier Halal Certificates" },
+    { "id": "flow_chart", "label": "Production Flow Chart (Carta Alir)" },
+    { "id": "training_certificate", "label": "Halal Training Certificates" },
+    { "id": "halal_policy", "label": "Halal Policy Document / Poster" },
+    { "id": "pest_control", "label": "Pest Control Contract" },
+    { "id": "kitchen_photo", "label": "Kitchen / Premise Photos" }
+  ],
+  "requirements": [
+    {
+      "id": "2.1-business-registration",
+      "section": "MPPHM 2020 Seksyen 2.1",
+      "title": "Valid business registration",
+      "evidenceTypes": ["business_profile"],
+      "checks": [
+        "SSM registration or equivalent business license is present",
+        "business name and address are identifiable",
+        "registration is not expired"
+      ],
+      "weight": 2
+    },
+    {
+      "id": "4.2-ingredient-list",
+      "section": "MPPHM 2020 Seksyen 4.2",
+      "title": "Complete ingredient list with sources",
+      "evidenceTypes": ["ingredient_list", "menu_list"],
+      "checks": [
+        "every menu item has its ingredients listed",
+        "each ingredient identifies its supplier or source",
+        "no obviously non-halal ingredient without justification"
+      ],
+      "weight": 3
+    },
+    {
+      "id": "4.3-supplier-certs",
+      "section": "MPPHM 2020 Seksyen 4.3",
+      "title": "Supplier halal certificates for critical ingredients",
+      "evidenceTypes": ["supplier_certificate"],
+      "checks": [
+        "certificates exist for animal-derived and high-risk ingredients",
+        "certificates are issued by JAKIM or a JAKIM-recognized body",
+        "certificates are not expired",
+        "certificate scope covers the supplied items"
+      ],
+      "weight": 3
+    },
+    {
+      "id": "5.2-flow-chart",
+      "section": "MPPHM 2020 Seksyen 5.2",
+      "title": "Production flow chart with halal control points",
+      "evidenceTypes": ["flow_chart"],
+      "checks": [
+        "covers receiving, storage, preparation, and serving stages",
+        "includes cleaning or sanitization step",
+        "identifies halal critical control points"
+      ],
+      "weight": 2
+    },
+    {
+      "id": "6.1-halal-policy",
+      "section": "MPPHM 2020 Seksyen 6.1",
+      "title": "Documented halal policy",
+      "evidenceTypes": ["halal_policy"],
+      "checks": [
+        "policy states commitment to halal compliance",
+        "signed or endorsed by management",
+        "displayed or communicated to staff"
+      ],
+      "weight": 1
+    },
+    {
+      "id": "6.3-training",
+      "section": "MPPHM 2020 Seksyen 6.3",
+      "title": "Halal awareness training for key staff",
+      "evidenceTypes": ["training_certificate"],
+      "checks": [
+        "at least one staff member holds a halal training certificate",
+        "training is from a recognized provider",
+        "certificate is current"
+      ],
+      "weight": 2
+    },
+    {
+      "id": "7.1-pest-control",
+      "section": "MPPHM 2020 Seksyen 7.1",
+      "title": "Active pest control program",
+      "evidenceTypes": ["pest_control"],
+      "checks": [
+        "contract with a licensed pest control provider exists",
+        "contract period covers the application date"
+      ],
+      "weight": 1
+    },
+    {
+      "id": "7.3-premise-hygiene",
+      "section": "MPPHM 2020 Seksyen 7.3",
+      "title": "Premise cleanliness and segregation",
+      "evidenceTypes": ["kitchen_photo"],
+      "checks": [
+        "photos show clean preparation and storage areas",
+        "no visible non-halal items or cross-contamination risks",
+        "hand-washing facilities visible"
+      ],
+      "weight": 2
+    }
+  ]
+}

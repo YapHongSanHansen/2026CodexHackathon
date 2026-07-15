@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   PADU THEME - GLOBAL STYLES
+   Colors: Cream #F5F1E8, Lime #C5E86C, Dark Green #2D4A3E
+   ============================================ */
+
+@layer base {
+  body {
+    @apply bg-[#F5F1E8] text-gray-900;
+  }
+
+  .font-serif {
+    font-family: var(--font-playfair), Georgia, serif;
+  }
+
+  .font-sans {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes slow-zoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s ease-in-out infinite;
+}
+
+@keyframes blob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(100px, 50px) scale(1.1); }
+  66% { transform: translate(-50px, 100px) scale(0.9); }
+}
+
+@keyframes blob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-100px, -50px) scale(1.1); }
+  66% { transform: translate(50px, -100px) scale(0.9); }
+}
+
+.blob1 { animation: blob1 20s ease-in-out infinite; }
+.blob2 { animation: blob2 25s ease-in-out infinite; }
+
+/* ============================================
+   CUSTOM SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#F5F1E8];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#2D4A3E]/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#2D4A3E]/50;
+}
+
+/* ============================================
+   COMPONENTS - PADU THEME
+   ============================================ */
+
+@layer components {
+  /* Backgrounds */
+  .bg-padu-cream { @apply bg-[#F5F1E8]; }
+  .bg-padu-dark { @apply bg-[#2D4A3E]; }
+  .bg-padu-lime { @apply bg-[#C5E86C]; }
+  .bg-padu-olive { @apply bg-[#8B7355]; }
+
+  /* Text Colors */
+  .text-padu-dark { @apply text-[#2D4A3E]; }
+  .text-padu-lime { @apply text-[#C5E86C]; }
+
+  /* Section Backgrounds */
+  .section-cream {
+    @apply bg-[#F5F1E8];
+  }
+
+  .section-white {
+    @apply bg-white;
+  }
+
+  /* Cards */
+  .card-white {
+    @apply bg-white rounded-2xl p-6 shadow-sm border border-gray-200;
+  }
+
+  .card-glass {
+    @apply bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200;
+  }
+
+  /* Buttons - Primary */
+  .btn-primary {
+    @apply bg-gradient-to-r from-[#2D4A3E] to-[#3D5A4E] text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200;
+  }
+
+  /* Buttons - Secondary (Lime) */
+  .btn-lime {
+    @apply bg-[#C5E86C] text-[#2D4A3E] font-bold px-6 py-3 rounded-xl hover:bg-[#B5D85C] hover:scale-105 active:scale-95 transition-all duration-200;
+  }
+
+  /* Buttons - Outline */
+  .btn-outline {
+    @apply bg-white border-2 border-[#2D4A3E] text-[#2D4A3E] font-semibold px-6 py-3 rounded-xl hover:bg-[#C5E86C]/20 active:scale-95 transition-all duration-200;
+  }
+
+  /* Buttons - Ghost */
+  .btn-ghost {
+    @apply text-white font-semibold px-4 py-2 rounded-full hover:bg-white/10 active:scale-95 transition-all duration-200;
+  }
+
+  /* Input Fields */
+  .input-field {
+    @apply w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C5E86C] focus:border-[#C5E86C] text-[#2D4A3E] placeholder-gray-400 transition-all;
+  }
+
+  /* Badges */
+  .badge-lime {
+    @apply inline-flex items-center gap-2 px-3 py-1 bg-[#C5E86C] text-[#2D4A3E] rounded-full font-semibold text-sm;
+  }
+
+  .badge-dark {
+    @apply inline-flex items-center gap-2 px-3 py-1 bg-[#2D4A3E] text-white rounded-full font-semibold text-sm;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center gap-2 px-3 py-1 bg-[#C5E86C]/20 text-[#2D4A3E] border border-[#C5E86C] rounded-full font-semibold text-sm;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-amber-800 border border-amber-300 rounded-full font-semibold text-sm;
+  }
+
+  .badge-error {
+    @apply inline-flex items-center gap-2 px-3 py-1 bg-red-100 text-red-800 border border-red-300 rounded-full font-semibold text-sm;
+  }
+
+  .badge-info {
+    @apply inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-white rounded-full font-semibold text-sm;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-amber-400 via-yellow-400 to-emerald-400 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-dark {
+    @apply bg-gradient-to-r from-[#2D4A3E] to-[#C5E86C] bg-clip-text text-transparent;
+  }
+
+  /* Section Container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-20 md:py-28;
+  }
+
+  /* Section Panel (White Card) */
+  .section-panel {
+    @apply bg-white text-gray-900 shadow-lg border border-gray-100 rounded-2xl p-8;
+  }
+}
+/* ============================================
+   AMANA v2 DESIGN SYSTEM (journey UI)
+   ============================================ */
+
+@layer components {
+  .v2-card {
+    @apply bg-white rounded-2xl border border-[#2D4A3E]/10 shadow-[0_1px_3px_rgba(45,74,62,0.06)];
+  }
+
+  .v2-card-hover {
+    @apply transition-all duration-200 hover:border-[#C5E86C] hover:shadow-[0_6px_20px_rgba(45,74,62,0.10)] hover:-translate-y-0.5;
+  }
+
+  .v2-btn {
+    @apply inline-flex items-center justify-center gap-2 text-sm font-semibold rounded-full px-4 py-2 transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .v2-btn-primary {
+    @apply v2-btn bg-[#2D4A3E] text-white hover:bg-[#3a5d4f] active:scale-[0.98] shadow-sm;
+  }
+
+  .v2-btn-accent {
+    @apply v2-btn bg-[#C5E86C] text-[#2D4A3E] hover:bg-[#d3f080] active:scale-[0.98] shadow-sm;
+  }
+
+  .v2-btn-ghost {
+    @apply v2-btn border border-[#2D4A3E]/15 text-[#2D4A3E]/70 hover:border-[#C5E86C] hover:text-[#2D4A3E] bg-white;
+  }
+
+  .v2-chip {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border;
+  }
+
+  .v2-title {
+    font-family: var(--font-playfair), Georgia, serif;
+    @apply text-[#2D4A3E] font-bold tracking-tight;
+  }
+
+  .v2-input {
+    @apply bg-[#F5F1E8] rounded-full px-4 py-2 text-sm text-[#2D4A3E] outline-none focus:ring-2 focus:ring-[#C5E86C] placeholder:text-[#2D4A3E]/40;
+  }
+}
+
+@keyframes v2-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.v2-skeleton {
+  background: linear-gradient(90deg, #eee9dd 25%, #f7f3ea 50%, #eee9dd 75%);
+  background-size: 800px 100%;
+  animation: v2-shimmer 1.4s infinite linear;
+}

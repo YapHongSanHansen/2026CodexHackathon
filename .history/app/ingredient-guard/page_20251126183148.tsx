@@ -1,0 +1,491 @@
+'use client'
+
+import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { 
+  ArrowLeft, 
+  Paperclip,
+  Send,
+  Image as ImageIcon,
+  Mic,
+  Sparkles,
+  Eye,
+  X,
+  Loader2,
+  User,
+  Bot
+} from 'lucide-react'
+import LanguageToggle from '@/components/LanguageToggle'
+import { Language } from '@/lib/translations'
+
+interface Message {
+  id: string
+  role: 'user' | 'assistant'
+  content: string
+  imageUri?: string
+  audioUri?: string
+  timestamp: Date
+}
+
+interface AttachmentTrayState {
+  isOpen: boolean
+  selectedImage?: File | null
+  selectedAudio?: File | null
+  imagePreview?: string | null
+}
+
+export default function IngredientGuard() {
+  const router = useRouter()
+  const [language, setLanguage] = useState<Language>('en')
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [attachmentTray, setAttachmentTray] = useState<AttachmentTrayState>({ isOpen: false })
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const audioInputRef = useRef<HTMLInputElement>(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null)
+
+  const t = {
+    en: {
+      title: 'Ingredient Scanner',
+      subtitle: 'Manglish-Powered AI Scanner',
+      upload: 'Upload',
+      camera: 'Camera',
+      voice: 'Voice',
+      uploadTitle: 'Click to upload product label',
+      uploadSubtitle: 'PNG, JPG up to 5MB',
+      removeImage: 'Remove image',
+      recording: 'Recording...',
+      tapToRecord: 'Tap to record your question',
+      askIn: 'Ask in Manglish, BM, or English',
+      transcribed: 'Transcribed:',
+      optional: 'Optional: Ask in Manglish/BM/EN',
+      placeholder: 'Example: Is this sauce halal? Is the logo valid?',
+      analyzing: 'Scanning label...',
+      checkingIngredients: 'Checking ingredients and halal logo',
+      analyzeBtn: 'Analyze Product',
+      flaggedIngredients: 'Flagged Ingredients',
+      halalLogoCheck: 'Halal Logo Check',
+      jakimRecognized: 'JAKIM Recognized',
+      notRecognized: 'Not Recognized by JAKIM',
+      aiRecommendation: 'AI Recommendation',
+      scanAnother: 'Scan Another',
+      saveHistory: 'Save to History',
+      highRisk: 'High Risk',
+      mediumRisk: 'Medium Risk',
+      lowRisk: 'Low Risk',
+      notRecommended: 'Not Recommended',
+      verifySource: 'Verify Source',
+      safeToUse: 'Safe to Use',
+      fileTooLarge: 'File too large! Maximum 5MB.',
+      cameraDenied: 'Camera access denied',
+      comingSoon: 'Coming soon!',
+    },
+    bm: {
+      title: 'Pengimbas Ramuan',
+      subtitle: 'Pengimbas AI Berkuasa Manglish',
+      upload: 'Muat Naik',
+      camera: 'Kamera',
+      voice: 'Suara',
+      uploadTitle: 'Klik untuk muat naik label produk',
+      uploadSubtitle: 'PNG, JPG sehingga 5MB',
+      removeImage: 'Buang gambar',
+      recording: 'Merakam...',
+      tapToRecord: 'Ketik untuk rakam soalan anda',
+      askIn: 'Tanya dalam Manglish, BM, atau Inggeris',
+      transcribed: 'Transkripsi:',
+      optional: 'Pilihan: Tanya dalam Manglish/BM/EN',
+      placeholder: 'Contoh: Sos ni halal tak? Logo dia betul ke?',
+      analyzing: 'Mengimbas label...',
+      checkingIngredients: 'Menyemak ramuan dan logo halal',
+      analyzeBtn: 'Analisis Produk',
+      flaggedIngredients: 'Ramuan Bermasalah',
+      halalLogoCheck: 'Semakan Logo Halal',
+      jakimRecognized: 'Diiktiraf JAKIM',
+      notRecognized: 'Tidak Diiktiraf JAKIM',
+      aiRecommendation: 'Cadangan AI',
+      scanAnother: 'Imbas Lain',
+      saveHistory: 'Simpan ke Sejarah',
+      highRisk: 'Risiko Tinggi',
+      mediumRisk: 'Risiko Sederhana',
+      lowRisk: 'Risiko Rendah',
+      notRecommended: 'Tidak Disyorkan',
+      verifySource: 'Sahkan Sumber',
+      safeToUse: 'Selamat Digunakan',
+      fileTooLarge: 'Fail terlalu besar! Maksimum 5MB.',
+      cameraDenied: 'Akses kamera ditolak',
+      comingSoon: 'Akan datang!',
+    }
+  }
+
+  const text = t[language]
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file && file.size <= 5 * 1024 * 1024) {
+      const reader = new FileReader()
+      reader.onload = () => setImage(reader.result as string)
+      reader.readAsDataURL(file)
+    } else {
+      alert(text.fileTooLarge)
+    }
+  }
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+      alert('Camera feature - in production, this would open camera preview')
+      stream.getTracks().forEach(track => track.stop())
+    } catch (err) {
+      alert(text.cameraDenied)
+    }
+  }
+
+  const toggleRecording = () => {
+    if (!isRecording) {
+      setIsRecording(true)
+      setTimeout(() => {
+        setIsRecording(false)
+        setTranscription('Check sos ni halal tak? Logo dia betul ke?')
+      }, 2000)
+    }
+  }
+
+  const analyzeProduct = async () => {
+    setLoading(true)
+    setTimeout(() => {
+      setResult({
+        risk_level: 'High',
+        flagged_ingredients: [
+          { code: 'E120', name: 'Cochineal (Carmine)', reason: language === 'bm' ? 'Berasal dari darah serangga (Haram)' : 'Derived from insect blood (Haram)' },
+          { code: 'E471', name: 'Mono-diglycerides', reason: language === 'bm' ? 'Sumber tidak diketahui - mungkin berasaskan haiwan (Mushbooh)' : 'Source unknown - may be animal-based (Mushbooh)' }
+        ],
+        cert_body: {
+          name: 'Central Islamic Council of Thailand (CICOT)',
+          recognized: true
+        },
+        advice: language === 'bm' 
+          ? 'Puan, saya dah semak label produk ini dengan teliti. Sos ini tidak disyorkan untuk kegunaan kedai Puan kerana ia mengandungi E120 (Cochineal/Carmine) yang berasal dari darah serangga - ini adalah Haram. Walaupun logo halal CICOT diiktiraf oleh JAKIM, kehadiran ramuan E120 menjadikan produk ini tidak sesuai. Saya cadangkan Puan cari alternatif sos yang tiada E120.'
+          : 'I have carefully checked this product label. This sauce is not recommended for your shop because it contains E120 (Cochineal/Carmine) which is derived from insect blood - this is Haram. Although the CICOT halal logo is recognized by JAKIM, the presence of E120 makes this product unsuitable. I suggest finding an alternative sauce without E120.'
+      })
+      setLoading(false)
+    }, 2000)
+  }
+
+  return (
+    <div className="min-h-screen bg-[#F5F1E8]">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <button 
+                onClick={() => router.push('/')} 
+                className="p-2 hover:bg-[#C5E86C]/20 rounded-xl transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5 text-[#2D4A3E]" />
+              </button>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2D4A3E] to-[#3D5A4E] flex items-center justify-center">
+                  <Eye className="w-5 h-5 text-[#C5E86C]" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-[#2D4A3E]">{text.title}</h1>
+                  <p className="text-xs text-gray-500">{text.subtitle}</p>
+                </div>
+              </div>
+            </div>
+            <LanguageToggle language={language} onLanguageChange={setLanguage} />
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Tabs */}
+        <div className="flex gap-3 mb-6">
+          <TabButton
+            active={activeTab === 'upload'}
+            onClick={() => setActiveTab('upload')}
+            icon={<Upload className="w-5 h-5" />}
+            label={text.upload}
+          />
+          <TabButton
+            active={activeTab === 'camera'}
+            onClick={() => {
+              setActiveTab('camera')
+              startCamera()
+            }}
+            icon={<Camera className="w-5 h-5" />}
+            label={text.camera}
+          />
+          <TabButton
+            active={activeTab === 'voice'}
+            onClick={() => setActiveTab('voice')}
+            icon={<Mic className="w-5 h-5" />}
+            label={text.voice}
+          />
+        </div>
+
+        {/* Upload Section */}
+        {activeTab === 'upload' && (
+          <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+            {!image ? (
+              <label className="block cursor-pointer">
+                <div className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-[#C5E86C] hover:bg-[#C5E86C]/10 transition-all">
+                  <div className="w-16 h-16 rounded-2xl bg-[#F5F1E8] flex items-center justify-center mx-auto mb-4">
+                    <Upload className="w-8 h-8 text-[#2D4A3E]" />
+                  </div>
+                  <p className="text-[#2D4A3E] font-semibold mb-2">{text.uploadTitle}</p>
+                  <p className="text-sm text-gray-500">{text.uploadSubtitle}</p>
+                </div>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
+            ) : (
+              <div className="space-y-4">
+                <div className="relative group">
+                  <img src={image} alt="Product label" className="w-full rounded-2xl shadow-md" />
+                  <button className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ZoomIn className="w-5 h-5 text-[#2D4A3E]" />
+                  </button>
+                </div>
+                <button
+                  onClick={() => {
+                    setImage(null)
+                    setResult(null)
+                  }}
+                  className="text-sm text-red-500 hover:text-red-600 font-medium flex items-center gap-1"
+                >
+                  <XCircle className="w-4 h-4" />
+                  {text.removeImage}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Voice Section */}
+        {activeTab === 'voice' && (
+          <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+            <div className="text-center">
+              <button
+                onClick={toggleRecording}
+                className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center transition-all ${
+                  isRecording 
+                    ? 'bg-red-500 animate-pulse shadow-lg shadow-red-300' 
+                    : 'bg-gradient-to-br from-[#2D4A3E] to-[#3D5A4E] hover:scale-105 shadow-lg'
+                }`}
+              >
+                <Mic className={`w-10 h-10 ${isRecording ? 'text-white' : 'text-[#C5E86C]'}`} />
+              </button>
+              <p className="text-[#2D4A3E] font-semibold mb-2">
+                {isRecording ? text.recording : text.tapToRecord}
+              </p>
+              <p className="text-sm text-gray-500">{text.askIn}</p>
+              
+              {transcription && (
+                <div className="mt-6 p-4 bg-[#C5E86C]/20 border border-[#C5E86C] rounded-xl">
+                  <p className="text-xs text-[#2D4A3E] font-semibold mb-1">{text.transcribed}</p>
+                  <p className="text-[#2D4A3E]">{transcription}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Question Input */}
+        {image && (
+          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6">
+            <label className="block text-sm font-semibold text-[#2D4A3E] mb-2">
+              {text.optional}
+            </label>
+            <input
+              type="text"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder={text.placeholder}
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C5E86C] focus:border-[#C5E86C] text-[#2D4A3E] placeholder-gray-400"
+            />
+          </div>
+        )}
+
+        {/* Analyze Button */}
+        {image && !result && (
+          <button
+            onClick={analyzeProduct}
+            disabled={loading}
+            className="w-full py-4 bg-gradient-to-r from-[#2D4A3E] to-[#3D5A4E] text-white rounded-2xl font-bold text-lg hover:scale-[1.02] hover:shadow-xl transition-all disabled:opacity-50 disabled:hover:scale-100 shadow-lg"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-3">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>{text.analyzing}</span>
+                <span className="text-sm font-normal opacity-80">{text.checkingIngredients}</span>
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#C5E86C]" />
+                {text.analyzeBtn}
+              </span>
+            )}
+          </button>
+        )}
+
+        {/* Results */}
+        {result && (
+          <div className="space-y-6">
+            {/* Risk Level */}
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+              <div className="flex items-center justify-center">
+                <RiskBadge level={result.risk_level} language={language} text={text} />
+              </div>
+            </div>
+
+            {/* Flagged Ingredients */}
+            {result.flagged_ingredients.length > 0 && (
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                <h3 className="text-lg font-bold text-[#2D4A3E] mb-4 flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-red-500" />
+                  {text.flaggedIngredients}
+                </h3>
+                <div className="space-y-3">
+                  {result.flagged_ingredients.map((ing: any, i: number) => (
+                    <div key={i} className="flex items-start gap-3 p-4 bg-red-50 rounded-xl border border-red-200">
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-bold text-red-900">{ing.code} - {ing.name}</div>
+                        <div className="text-sm text-red-700 mt-1">{ing.reason}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Halal Logo Check */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <h3 className="text-lg font-bold text-[#2D4A3E] mb-4">{text.halalLogoCheck}</h3>
+              <div className={`flex items-start gap-3 p-4 rounded-xl border ${
+                result.cert_body.recognized 
+                  ? 'bg-[#C5E86C]/20 border-[#C5E86C]' 
+                  : 'bg-red-50 border-red-200'
+              }`}>
+                {result.cert_body.recognized ? (
+                  <CheckCircle className="w-6 h-6 text-[#2D4A3E] flex-shrink-0" />
+                ) : (
+                  <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
+                )}
+                <div>
+                  <div className="font-bold text-[#2D4A3E]">{result.cert_body.name}</div>
+                  <div className="text-sm text-[#2D4A3E]/80 mt-1">
+                    {result.cert_body.recognized 
+                      ? `✓ ${text.jakimRecognized}` 
+                      : `✗ ${text.notRecognized}`
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Advice */}
+            <div className="bg-gradient-to-br from-[#2D4A3E] to-[#3D5A4E] rounded-2xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#C5E86C]" />
+                {text.aiRecommendation}
+              </h3>
+              <p className="text-white/90 leading-relaxed">{result.advice}</p>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setImage(null)
+                  setResult(null)
+                  setQuestion('')
+                  setTranscription('')
+                }}
+                className="flex-1 py-4 bg-white border-2 border-[#2D4A3E] text-[#2D4A3E] rounded-2xl font-semibold hover:bg-[#C5E86C]/20 transition-all"
+              >
+                {text.scanAnother}
+              </button>
+              <button
+                onClick={() => alert(text.comingSoon)}
+                className="flex-1 py-4 bg-[#C5E86C] text-[#2D4A3E] rounded-2xl font-bold hover:bg-[#B5D85C] hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+              >
+                <History className="w-5 h-5" />
+                {text.saveHistory}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function TabButton({ active, onClick, icon, label }: any) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all ${
+        active
+          ? 'bg-[#C5E86C] text-[#2D4A3E] shadow-lg'
+          : 'bg-white text-[#2D4A3E] border-2 border-gray-200 hover:border-[#C5E86C] hover:bg-[#C5E86C]/10'
+      }`}
+    >
+      {icon}
+      <span className="hidden sm:inline">{label}</span>
+    </button>
+  )
+}
+
+function RiskBadge({ level, language, text }: { level: string; language: string; text: any }) {
+  const config = {
+    High: { 
+      bgColor: 'bg-red-50', 
+      borderColor: 'border-red-300',
+      textColor: 'text-red-900',
+      iconColor: 'text-red-500',
+      icon: XCircle, 
+      label: text.highRisk,
+      desc: text.notRecommended
+    },
+    Medium: { 
+      bgColor: 'bg-amber-50', 
+      borderColor: 'border-amber-300',
+      textColor: 'text-amber-900',
+      iconColor: 'text-amber-500',
+      icon: AlertTriangle, 
+      label: text.mediumRisk,
+      desc: text.verifySource
+    },
+    Low: { 
+      bgColor: 'bg-[#C5E86C]/30', 
+      borderColor: 'border-[#C5E86C]',
+      textColor: 'text-[#2D4A3E]',
+      iconColor: 'text-[#2D4A3E]',
+      icon: CheckCircle, 
+      label: text.lowRisk,
+      desc: text.safeToUse
+    }
+  }
+  
+  const { bgColor, borderColor, textColor, iconColor, icon: Icon, label, desc } = config[level as keyof typeof config]
+  
+  return (
+    <div className={`inline-flex items-center gap-4 px-8 py-5 rounded-2xl ${bgColor} border-2 ${borderColor}`}>
+      <Icon className={`w-10 h-10 ${iconColor}`} />
+      <div>
+        <div className={`text-2xl font-bold ${textColor}`}>{label}</div>
+        <div className={`text-sm ${textColor} opacity-80`}>{desc}</div>
+      </div>
+    </div>
+  )
+}
