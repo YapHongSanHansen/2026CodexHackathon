@@ -21,6 +21,17 @@ export interface EvidenceDocument {
   /** Structured facts extracted by AI (shape varies by category) */
   facts?: Record<string, unknown>
   issues?: string[]
+  photoAnalysis?: {
+    category: 'storage_receiving' | 'premises' | 'kitchen_photo'
+    confidence: number
+    reason: string
+    extractedText: string[]
+    observations: string[]
+    complianceIssues: string[]
+    width: number
+    height: number
+    manuallyCategorized?: boolean
+  }
 }
 
 function ensureDirs() {

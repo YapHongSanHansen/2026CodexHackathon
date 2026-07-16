@@ -5,7 +5,7 @@ import { analyzeDocument } from '@/lib/ai/analyze'
 export const maxDuration = 120
 
 export async function GET() {
-  return NextResponse.json({ documents: listDocuments() })
+  return NextResponse.json({ documents: listDocuments().filter(d => d.category !== 'kitchen_photo' && !d.photoAnalysis) })
 }
 
 export async function POST(request: NextRequest) {
@@ -15,6 +15,10 @@ export async function POST(request: NextRequest) {
     const category = formData.get('category') as string | null
     if (!file || !category) {
       return NextResponse.json({ error: 'file and category are required' }, { status: 400 })
+    }
+
+    if (category === 'kitchen_photo' || file.type.startsWith('image/')) {
+      return NextResponse.json({ error: 'Photos must be uploaded from the Upload Photos workflow.' }, { status: 400 })
     }
 
     const doc = await addDocument(category, file)
@@ -41,6 +45,10 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   const id = new URL(request.url).searchParams.get('id')
   if (!id) return NextResponse.json({ error: 'id required' }, { status: 400 })
+  const doc = listDocuments().find(d => d.id === id)
+  if (doc?.category === 'kitchen_photo' || doc?.photoAnalysis) {
+    return NextResponse.json({ error: 'Photos must be managed from the Upload Photos workflow.' }, { status: 400 })
+  }
   const ok = removeDocument(id)
   return NextResponse.json({ removed: ok })
 }

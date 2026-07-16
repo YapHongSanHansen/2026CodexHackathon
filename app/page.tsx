@@ -7,6 +7,7 @@ import {
   Package,
   Sparkles,
   Bot,
+  Image,
 } from 'lucide-react'
 import { listDocuments, loadGapReport, loadDrafts } from '@/lib/evidence/store'
 import { CHAPTERS } from '@/lib/ihcs/chapters'
@@ -43,7 +44,9 @@ function ScoreRing({ score }: { score: number | null }) {
 }
 
 export default function DashboardPage() {
-  const docs = listDocuments()
+  const allEvidence = listDocuments()
+  const docs = allEvidence.filter(d => d.category !== 'kitchen_photo' && !d.photoAnalysis)
+  const photos = allEvidence.filter(d => d.category === 'kitchen_photo' || d.photoAnalysis)
   const report = loadGapReport()
   const drafts = loadDrafts()
   const approved = drafts.filter(d => d.approved).length
@@ -58,9 +61,17 @@ export default function DashboardPage() {
       done: docs.length > 0,
     },
     {
+      href: '/journey/photos',
+      icon: Image,
+      step: '②',
+      title: 'Upload Photos',
+      status: photos.length + ' photos uploaded, ' + photos.filter(d => d.status === 'analyzed').length + ' analyzed',
+      done: photos.length > 0,
+    },
+    {
       href: '/journey/gaps',
       icon: ClipboardCheck,
-      step: '②',
+      step: '③',
       title: 'Gap Report',
       status: report
         ? `Score ${report.readinessScore}% · ${report.results.filter(r => r.verdict === 'pass').length}/${report.results.length} requirements pass`
@@ -70,7 +81,7 @@ export default function DashboardPage() {
     {
       href: '/journey/drafts',
       icon: PenLine,
-      step: '③',
+      step: '④',
       title: 'IHCS Drafts',
       status: `${drafts.length}/${CHAPTERS.length} chapters drafted · ${approved} approved`,
       done: approved === CHAPTERS.length,
@@ -78,7 +89,7 @@ export default function DashboardPage() {
     {
       href: '/journey/pack',
       icon: Package,
-      step: '④',
+      step: '⑤',
       title: 'Audit Pack',
       status: 'Bundle manual + report + evidence for MYeHALAL',
       done: false,
