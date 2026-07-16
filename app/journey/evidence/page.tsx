@@ -19,9 +19,7 @@ import {
   GitBranch,
   GraduationCap,
   ScrollText,
-  Bug,
-  Camera,
-} from 'lucide-react'
+  Bug,} from 'lucide-react'
 import JourneyShell from '@/components/JourneyShell'
 
 const CATEGORIES = [
@@ -32,9 +30,7 @@ const CATEGORIES = [
   { id: 'flow_chart', label: 'Flow Chart (Carta Alir)', icon: GitBranch },
   { id: 'training_certificate', label: 'Training Certificates', icon: GraduationCap },
   { id: 'halal_policy', label: 'Halal Policy', icon: ScrollText },
-  { id: 'pest_control', label: 'Pest Control Contract', icon: Bug },
-  { id: 'kitchen_photo', label: 'Kitchen Photos', icon: Camera },
-]
+  { id: 'pest_control', label: 'Pest Control Contract', icon: Bug },]
 
 interface Doc {
   id: string
