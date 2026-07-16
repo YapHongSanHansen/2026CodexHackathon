@@ -3,10 +3,12 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { FolderOpen, ClipboardCheck, PenLine, Package, Home, Check } from 'lucide-react'
+import { FolderOpen, ClipboardCheck, PenLine, Package, Home, Check, Image, Video } from 'lucide-react'
 
 const STEPS = [
   { href: '/journey/evidence', icon: FolderOpen, label: 'Evidence' },
+  { href: '/journey/photos', icon: Image, label: 'Photos' },
+  { href: '/journey/podcast', icon: Video, label: 'Podcast' },
   { href: '/journey/gaps', icon: ClipboardCheck, label: 'Gap Report' },
   { href: '/journey/drafts', icon: PenLine, label: 'Drafts' },
   { href: '/journey/pack', icon: Package, label: 'Audit Pack' },
