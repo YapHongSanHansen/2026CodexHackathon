@@ -1,473 +1,220 @@
-# HalalBoleh - AI-Powered Halal Certification Assistant
+# HalalBoleh — AI Copilot for JAKIM Halal Certification
 
 > **Empowering Malaysian SMEs with affordable, intelligent halal compliance technology**
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.1.0-black)](https://nextjs.org/)
-[![JamAI Base](https://img.shields.io/badge/JamAI_Base-Powered-4CAF50)](https://jamaibase.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![Vercel AI SDK](https://img.shields.io/badge/Vercel_AI_SDK-v6-000000)](https://sdk.vercel.ai/)
+[![Grafilab](https://img.shields.io/badge/Grafilab-LLM%2FOCR%2FVision-4CAF50)](https://grafilab.ai/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
+
 ## SLIDES LINK
 https://www.canva.com/design/DAG5KB75PwE/pYzvfDQ8524BDjRDIAS-8A/edit?utm_content=DAG5KB75PwE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 ## DEMO VIDEO
 https://drive.google.com/drive/folders/1hUwKkKSlQoQfq2QeR_T6VXTn4P4KaC7P?usp=sharing
 
+---
+
 ## 🎯 The Challenge
 
 Malaysian SMEs face **three critical barriers** when pursuing JAKIM Halal Certification:
 
-1. **💰 Budget Constraints** - Hiring halal consultants costs **RM5,000-15,000**, beyond reach for small businesses
-2. **📄 Complex Documentation** - MPPHM 2020 requires 50+ pages of formal documentation in Bahasa Malaysia
-3. **🌐 Language Barriers** - Many business owners struggle with formal Bahasa Malaysia, preferring **Manglish** (Malaysian English)
+1. **💰 Budget Constraints** — Hiring halal consultants costs **RM5,000–15,000**, beyond reach for small businesses
+2. **📄 Complex Documentation** — MPPHM 2020 requires 50+ pages of formal documentation in Bahasa Malaysia
+3. **🌐 Language Barriers** — Many business owners prefer **Manglish** (Malaysian English) over formal Bahasa Malaysia
 
-**The Result?** 
+**The Result?**
 - 73.5% of JAKIM audit failures are due to **incomplete documentation**
-- SMEs wait 6-12 months for certification due to **repeated submissions**
+- SMEs wait 6–12 months for certification due to **repeated submissions**
 - Malaysian food businesses lose competitive advantages in regional markets
 
 ---
 
 ## 💡 Our Solution
 
-**AMANA** is an AI-powered platform that **democratizes halal certification** by providing three intelligent services:
+**HalalBoleh** is an AI copilot that walks an SME through the entire JAKIM certification journey (MPPHM 2020) — from raw documents to a submission-ready audit pack. It is **evidence-based**: every AI claim is tied to a document the business actually uploaded, and unknown facts become honest placeholders rather than invented content.
 
-### 🔍 **1. Ingredient Guard** (Manglish-Powered AI Scanner)
-- **Snap & Scan** product labels using Vision AI (GPT-4V)
-- **Voice Search** ingredients in Manglish/BM/EN via Whisper transcription
-- **Instant Analysis** against JAKIM halal databases using RAG (Retrieval-Augmented Generation)
-- **Multi-Language Support** - Responds in user's preferred language
+### 🗂️ 1. Evidence Locker — `/journey/evidence`
+Upload business documents (SSM profile, ingredient list, supplier certs, flow chart, training certs, halal policy, pest control contract, kitchen photos). Each upload is **analyzed instantly by AI** — facts extracted (names, cert numbers, expiry dates) and problems flagged (expired certs, unknown-status ingredients).
 
-**Real-World Impact:** Helps consumers verify halal status in seconds, preventing accidental consumption of non-halal products.
+### 📊 2. Gap Report — `/journey/gaps`
+A structured MPPHM 2020 rubric (8 weighted requirements) is checked against the evidence. Each requirement gets `pass / warn / fail / missing` with reasons, fix actions, and cited document ids. The **readiness score is computed in code** from weighted verdicts (not by the LLM), plus an AI "next best action".
 
-### 📚 **2. IHCS Auto-Architect** (AI Manual Generator)
-- **Conversational Q&A** - Interviews business owners in friendly Bahasa Malaysia
-- **Real-Time Validation** - Checks answers against MPPHM 2020 standards using Chain-of-Thought reasoning
-- **Automatic Generation** - Produces 50-page IHCS manual from 7 simple conversations
-- **MPPHM 2020 Compliant** - Every chapter references official certification standards
+### 📚 3. IHCS Drafts — `/journey/drafts`
+AI drafts the 7-chapter IHCS manual from an approved HTML template. Every business-specific claim carries a **citation to an evidence file**; unknown facts become `[MAKLUMAT DIPERLUKAN: …]` placeholders — never invented. Uses a **generate → critic → revise** loop. BM and EN supported. User approves chapter by chapter.
 
-**Real-World Impact:** Reduces manual creation time from **3 months to 30 minutes**, saving RM10,000+ in consultant fees.
+### ✅ 4. Audit Pack — `/journey/pack`
+One click bundles a zip: IHCS manual **PDF** (Puppeteer template pipeline), `gap-report.md`, `evidence-index.md` (with provenance), and the original uploads — ready for the MYeHALAL process.
 
-### ✅ **3. Pre-Audit Readiness** (Digital Auditor)
-- **Smart Upload** - Drag-and-drop 7 required documents (flow charts, certificates, photos)
-- **AI Validation** - Cross-checks documents against JAKIM requirements
-- **Readiness Score** - 0-100% score with actionable recommendations
-- **Detailed Reports** - Markdown-formatted audit reports with PASS/FAIL indicators
+### 🤖 5. Copilot Panel — on all journey pages
+A tool-using chat agent, trilingual (EN/BM/Manglish), with **voice input** (ElevenLabs Scribe). It can inspect evidence, run gap analysis, search the curated knowledge base, verify supplier certs against public records (Exa), research ingredients, and draft chapters — all with strict citation rules.
 
-**Real-World Impact:** Prevents 73.5% of common audit failures before submission, saving months of back-and-forth with JAKIM
+### 📈 6. Dashboard — `/`
+Readiness score ring, next best action, and live step progress.
 
 ---
 
 ## 🏗️ Technical Architecture
 
-### **Backend: JamAI Base**
+### Stack & Services
 
-AMANA leverages **JamAI Base** as its core AI infrastructure:
+| Concern | Service | Notes |
+|---|---|---|
+| **LLM / OCR / Vision** | **Grafilab** (OpenAI-compatible) | Copilot agent, gap engine, drafting, document extraction |
+| **Web verification + RAG** | **Exa** | Live cert verification + knowledge-base ingestion |
+| **Voice (STT)** | **ElevenLabs** | Scribe speech-to-text wired into the copilot |
+| **Framework** | Next.js 14 App Router + **Vercel AI SDK v6** | `ai`, `@ai-sdk/react`, `@ai-sdk/openai-compatible` |
+| **Retrieval** | MiniSearch (BM25) + LLM query expansion | Grafilab has no embeddings endpoint; keyword retrieval fits the corpus |
+| **PDF export** | Puppeteer + jsPDF | Manual & audit-pack generation |
+| **Styling** | Tailwind CSS | Organic theme (cream `#F5F1E8`, lime `#C5E86C`, forest `#2D4A3E`) |
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        JamAI Base                           │
-│  (Serverless AI Platform for Generative Tables)           │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  📚 Knowledge Tables (RAG Storage)                         │
-│  ├─ JAKIM_Halal_Ingredients_Database                       │
-│  ├─ MPPHM_2020_Certification_Manual                        │
-│  └─ Pre_Audit_Requirements                                 │
-│                                                             │
-│  ⚙️  Action Tables (AI Logic Engine)                       │
-│  ├─ Chatgpt_interface (Ingredient Guard)                   │
-│  ├─ ihcs_content_transformer (IHCS Generator)              │
-│  └─ Pre_Audit_System (Document Validator)                  │
-│                                                             │
-│  🎙️ Whisper API (Audio Transcription)                     │
-│  └─ Supports Manglish dialect recognition                  │
-│                                                             │
-│  👁️ Vision API (Image Analysis)                           │
-│  └─ GPT-4V for label scanning                              │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    AMANA Frontend                           │
-│              (Next.js 14 App Router)                        │
-├─────────────────────────────────────────────────────────────┤
-│  🔍 Ingredient Guard (Multimodal Chat Interface)           │
-│  📚 IHCS Architect (Interactive Q&A with PDF Export)        │
-│  ✅ Pre-Audit (Document Upload & Scoring Dashboard)        │
-└─────────────────────────────────────────────────────────────┘
-```
+### Provider-agnostic AI layer
 
-### **Key Technologies**
+All models are configured in a single file — [`lib/ai/model.ts`](lib/ai/model.ts). Swapping provider or model is an **env-var change, nothing else**:
 
-| Component | Technology | Purpose |
-|-----------|-----------|---------|
-| **AI Engine** | JamAI Base (Action & Knowledge Tables) | RAG + Multi-step reasoning |
-| **Vision AI** | GPT-4 Vision (via JamAI) | Product label scanning |
-| **Audio AI** | Whisper (via JamAI) | Manglish voice recognition |
-| **Frontend** | Next.js 14 (App Router) | React-based UI |
-| **Styling** | Tailwind CSS | Organic theme (#F5F1E8 cream, #C5E86C lime, #2D4A3E dark green) |
-| **Markdown** | react-markdown + remark-gfm | Audit report rendering |
-| **PDF Export** | jsPDF + html2canvas | Client-side PDF generation |
-| **Drag & Drop** | react-dropzone | File upload UX |
-| **Language** | TypeScript 5.3.3 | Type-safe development |
+- `AI_MODEL` — copilot agent, gap engine, drafting
+- `AI_MODEL_FAST` — classification, RAG query expansion
+- `AI_MODEL_OCR` — scanned certificates / PDFs
+- `AI_MODEL_VISION` — kitchen photos, product labels
 
----
-
-## 🌟 Key Features
-
-### 🌐 **Multilingual Optimization**
-- **Manglish First** - Understands "Check lah got halal ke tak?" queries
-- **Bahasa Malaysia** - Formal documentation in BM as per MPPHM 2020
-- **English** - Full English support for international users
-- **Language Toggle** - Switch languages on-the-fly
-
-### 🧠 **Chain-of-Thought Reasoning**
-- **Transparent AI** - Shows step-by-step validation logic
-- **MPPHM References** - Cites specific sections (e.g., "Seksyen 5.2")
-- **Compliance Scoring** - 0-100% per document with explanations
-
-### 📊 **Real-Time Validation**
-- **Instant Feedback** - No waiting for external consultants
-- **Interactive Q&A** - Conversational interviews, not boring forms
-- **Progressive Enhancement** - Guides users to improve answers
-
-### 📱 **Mobile-First Design**
-- **Responsive Layout** - Works on phones, tablets, desktops
-- **Drag-and-Drop** - Individual file zones for each document
-- **Touch-Friendly** - Optimized for on-the-go entrepreneurs
+> **⚠️ Grafilab quirk:** Grafilab accepts but *ignores* OpenAI's `response_format: json_schema` (returns prose), while its **tool calling follows JSON schemas faithfully**. All structured output therefore goes through [`lib/ai/structured.ts`](lib/ai/structured.ts), which forces a `submit` tool call with a zod schema and validates + retries. **Never use `generateObject` directly against Grafilab** — use `generateStructured()`.
 
 ---
 
 ## 🚀 Getting Started
 
-### **Prerequisites**
-
+### Prerequisites
 - Node.js 18+ (LTS recommended)
-- npm 9+ or pnpm 8+
-- JamAI Base account ([Sign up free](https://cloud.jamaibase.com))
+- npm 9+
+- API keys for **Grafilab**, **Exa**, and **ElevenLabs**
 
-### **Installation**
+### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/hmhhmm/AMANA.git
-cd AMANA
-
-# Install dependencies
+git clone <your-repo-url>
+cd halalboleh
 npm install
-
-# Set up environment variables (see below)
-cp .env.example .env.local
 ```
 
-### **Environment Configuration**
+### Environment Configuration
 
 Create a `.env.local` file in the root directory:
 
 ```env
-# ============================================
-# Ingredient Guard Configuration
-# ============================================
-JAMAI_API_KEY=jamai_pat_YOUR_INGREDIENT_GUARD_KEY
-# Project ID: proj_045275d84595590cb2eeb709 (hardcoded in lib/jam-ai-client.ts)
+# Grafilab (LLM / OCR / vision)
+GRAFILAB_API_KEY=sk-grafilab-...
+GRAFILAB_BASE_URL=https://console-api.grafilab.ai/api/oai/v1
 
-# ============================================
-# IHCS Auto-Architect Configuration
-# ============================================
-NEXT_PUBLIC_JAMAI_PERSONAL_ACCESS_TOKEN=jamai_pat_YOUR_IHCS_KEY
-NEXT_PUBLIC_JAMAI_PROJECT_ID=proj_YOUR_IHCS_PROJECT_ID
-NEXT_PUBLIC_JAMAI_BASE_URL=https://api.jamaibase.com
+# Model roles
+AI_MODEL=grafilab/glm-5.2             # copilot agent, gap engine, drafting
+AI_MODEL_FAST=grafilab/glm-5-turbo    # classification, RAG query expansion
+AI_MODEL_OCR=grafilab/glm-ocr         # scanned certificates / PDFs
+AI_MODEL_VISION=grafilab/qwen3-vl-plus # kitchen photos, product labels
 
-# ============================================
-# Pre-Audit Readiness Configuration
-# ============================================
-NEXT_PUBLIC_PRE_AUDIT_PROJECT_ID=proj_YOUR_PREAUDIT_PROJECT_ID
-PRE_AUDIT_API_KEY=jamai_pat_YOUR_PREAUDIT_KEY
+# Exa (web verification + RAG knowledge ingestion)
+EXA_API_KEY=...
+
+# ElevenLabs (voice transcription)
+ELEVENLABS_API_KEY=...
 ```
 
-**⚠️ Important:** 
-- Each feature uses a **separate JamAI project** for isolation
-- Get API keys from [JamAI Base Console](https://cloud.jamaibase.com)
-- See `scripts/verify-all-configs.js` to verify separation
+> `.env.local` is gitignored — never commit real keys.
 
-### **Required JamAI Tables**
-
-Before running the app, create these tables in your JamAI Base projects:
-
-#### **1. Ingredient Guard**
-- **Table:** `Chatgpt_interface` (Action Table)
-- **Columns:**
-  - Input: `Input_text` (Text), `Input_Image` (File), `Input_Audio` (File)
-  - Output: `Vision_Analysis` (Chat), `Knowledge_Check_Cert` (Chat), `Knowledge_Check_Ingredients` (Chat), `Final_reply` (Chat)
-
-#### **2. IHCS Auto-Architect**
-- **Table:** `ihcs_content_transformer` (Action Table)
-- **Columns:**
-  - Input: `user_answer` (Text), `company_name` (Text), `business_type` (Text), `chapter_number` (Text), `language` (Text)
-  - Output: `formal_content` (Chat), `compliance_score` (Chat), `suggestions` (Chat), `reasoning` (Chat)
-
-#### **3. Pre-Audit Readiness**
-- **Table:** `Pre_Audit_System` (Action Table)
-- **Columns:**
-  - Input: `ID` (Text), `Menu_File` (File), `Ingredient_File` (File), `Kitchen_Photo` (File), `Uploaded_Filenames` (Text)
-  - Output: `Final_report_card` (Chat)
-
-### **Run Development Server**
+### Run
 
 ```bash
-npm run dev
+npm run dev                        # http://localhost:3000 (auto-assigned port if busy)
+node scripts/ingest-knowledge.mjs  # (re)build the RAG knowledge base — run once, then weekly
+npx tsc --noEmit                   # typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the app.
-
----
-
-## 📖 Usage Guide
-
-### **Ingredient Guard**
-
-1. **Navigate** to `/ingredient-guard`
-2. **Upload** a product label image OR **speak** ingredient names
-3. **Receive** instant halal analysis with color-coded risk levels
-4. **Export** conversation history for reference
-
-**Example Query:**
-```
-User: "Nak check ni, ada gelatin ke? Label kata from bovine."
-AI: "🔴 HIGH RISK: Gelatin bovine boleh jadi HARAM kalau tak sembelih ikut syariah. 
-     Cari label yang tulis 'Halal Certified Gelatin' atau guna agar-agar instead."
-```
-
-### **IHCS Auto-Architect**
-
-1. **Navigate** to `/ihcs-architect`
-2. **Answer** 7 conversational questions in Manglish/BM/EN
-3. **Real-time validation** - AI checks answers against MPPHM 2020
-4. **Retry** if answer doesn't meet standards (Gatekeeper system)
-5. **Download** 50-page PDF manual once all answers pass
-
-**Example Conversation:**
-```
-AI: "Macam mana cara beli bahan mentah? Siapa yang beli?"
-User: "Saya beli sendiri dari pasar borong, check sijil halal pembekal dulu"
-AI: "🟢 PASS! Jawapan memenuhi MPPHM 2020 Seksyen 4.3. Next question..."
-```
-
-### **Pre-Audit Readiness**
-
-1. **Navigate** to `/pre-audit`
-2. **Drag & drop** 7 required documents:
-   - Menu List
-   - Ingredient List  
-   - Flow Chart (Carta Alir)
-   - Training Certificates
-   - Halal Policy Poster
-   - Pest Control Contract
-   - Kitchen/Factory Photos (3-5 photos)
-3. **Click** "Start Pre-Audit Check"
-4. **Review** readiness score (0-100%) with detailed report
-5. **Download** markdown report as PDF
-6. **Submit** to MYeHALAL portal when score ≥ 85%
-
-**Sample Report Output:**
-```markdown
-# Pre-Audit Readiness Report
-
-**Overall Score:** 92/100 ✅ PASS
-
-## Document Checklist
-✅ Menu List - FOUND (compliant with MPPHM 2020)
-✅ Ingredient List - FOUND (all suppliers have valid halal certs)
-⚠️  Flow Chart - FOUND (missing sanitization step at Section 4.4)
-
-## Recommendations
-1. Add hand-washing station to flow chart
-2. Update training certificate expiry dates
-```
-
----
-
-## 📊 Impact Metrics
-
-### **Problem Size**
-- **73.5%** of JAKIM audits fail due to incomplete documentation
-- **RM5,000-15,000** average consultant fees per SME
-- **6-12 months** average certification timeline
-
-### **AMANA Solution**
-- **30 minutes** to generate IHCS manual (vs. 3 months manual creation)
-- **RM0** cost for AI-powered consultation (vs. RM10,000+)
-- **85%+ readiness score** before submission (prevents re-submissions)
-
-### **Target Users**
-- Malaysian SMEs in food manufacturing
-- Halal restaurants and cafes
-- New entrepreneurs entering halal market
-- Existing businesses renewing certification
-
----
-
-## 🚧 Roadmap
-
-### **Phase 1: MVP** (✅ Complete)
-- [x] Ingredient Guard with Vision + Audio
-- [x] IHCS Auto-Architect with Q&A validation
-- [x] Pre-Audit Readiness with document scoring
-- [x] Multilingual support (EN/BM/Manglish)
-
-### **Phase 2: Enhancement** (🚧 In Progress)
-- [ ] User authentication (Google OAuth)
-- [ ] Conversation history persistence
-- [ ] PDF export for all reports
-- [ ] WhatsApp integration for mobile users
-
-### **Phase 3: Scale** (📅 Planned)
-- [ ] Support for other halal certification bodies (MUI, MUIS)
-- [ ] B2B dashboard for halal consultants
-- [ ] API for third-party integrations
-- [ ] Mobile app (React Native)
+- App state (uploads, extracted facts, gap reports, drafts, knowledge chunks) lives in `/data` — gitignored JSON files. Delete the folder to reset the demo.
+- Generated packs land in `public/generated/pack/`.
 
 ---
 
 ## 🗂️ Project Structure
 
 ```
-AMANA/
-├── app/                          # Next.js 14 App Router
-│   ├── page.tsx                  # Home page with feature cards
-│   ├── layout.tsx                # Root layout with metadata
-│   ├── globals.css               # Global Tailwind styles
-│   ├── ingredient-guard/
-│   │   └── page.tsx              # Ingredient scanner chat interface
-│   ├── ihcs-architect/
-│   │   └── page.tsx              # IHCS manual generation wizard
-│   ├── pre-audit/
-│   │   └── page.tsx              # Pre-audit document validator
-│   ├── history/
-│   │   └── page.tsx              # Conversation history (future)
-│   └── api/                      # Server-side API routes
-│       ├── analyze-product/
-│       │   └── route.ts          # Ingredient Guard backend (JamAI)
-│       ├── generate-ihcs/
-│       │   └── route.ts          # IHCS generator backend (JamAI)
-│       ├── pre-audit/
-│       │   ├── route.ts          # Pre-audit validator backend (JamAI)
-│       │   └── requirements/
-│       │       └── route.ts      # Optional: Dynamic requirements API
-│       └── transcribe/
-│           └── route.ts          # Whisper audio transcription (future)
-│
-├── components/                   # Reusable React components
-│   ├── LanguageToggle.tsx        # EN/BM language switcher
-│   ├── LoadingState.tsx          # Loading animations
-│   ├── StatusBadge.tsx           # PASS/FAIL/WARN badges
-│   ├── ChainOfThought.tsx        # AI reasoning display
-│   ├── Logo.tsx                  # AMANA branding
-│   └── WebFooter.tsx             # Footer with links
-│
-├── lib/                          # Utility libraries
-│   ├── jamaibase.ts              # JamAI Base core integration
-│   ├── jam-ai-client.ts          # Ingredient Guard client
-│   ├── jamaibase-ihcs.ts         # IHCS Auto-Architect client
-│   ├── jamai-api.ts              # Pre-Audit API client
-│   └── translations.ts           # EN/BM text translations
-│
-├── public/                       # Static assets
-│   ├── food.jpg                  # Hero background image
-│   ├── food2.jpeg                # About section image
-│   ├── manifest.json             # PWA manifest
-│   └── generated/                # Generated PDFs (gitignored)
-│       └── ihcs/                 # IHCS manual PDFs
-│
-├── scripts/                      # Utility scripts
-│   ├── test-pre-audit-connection.js  # Test JamAI connection
-│   └── verify-all-configs.js    # Verify environment variables
-│
-├── .env.local                    # Environment variables (gitignored)
-├── next.config.js                # Next.js configuration
-├── tailwind.config.ts            # Tailwind CSS config
-├── tsconfig.json                 # TypeScript configuration
-├── package.json                  # Dependencies
-├── README.md                     # This file
-├── QUICKSTART.md                 # Quick setup guide
-├── PROJECT_STRUCTURE.md          # Detailed architecture docs
-└── REFACTORING_GUIDE.md          # Code refactoring history
+lib/
+  ai/
+    model.ts        ← provider layer: the ONLY place models are configured
+    structured.ts   ← structured output via forced tool call (Grafilab quirk)
+    analyze.ts      ← document → facts extraction (OCR / vision / text paths)
+    gaps.ts         ← rubric gap engine; weighted score computed in code
+    draft.ts        ← IHCS chapter drafting: generate → critic → revise loop
+    copilot.ts      ← the tool-using copilot agent (8 tools)
+    exa.ts          ← Exa search helpers (cert records, ingredient sources)
+  rag/knowledge.ts  ← BM25 (MiniSearch) retrieval + LLM query expansion
+  rubric/mpphm-2020.json ← the 8 MPPHM requirements (edit here to tune audits)
+  ihcs/chapters.ts  ← 7 chapter definitions mirroring the HTML template
+  evidence/store.ts ← JSON-file persistence: documents, gap reports, drafts
+  pack/compile.ts   ← audit pack zip: template → PDF (Puppeteer) + reports + evidence
+
+app/
+  page.tsx                        ← dashboard (server component, reads store directly)
+  journey/{evidence,gaps,drafts,pack}/page.tsx
+  journey/layout.tsx              ← mounts the copilot panel on all journey pages
+  api/{evidence,gaps,drafts,pack,copilot,voice/stt}/route.ts
+
+components/
+  JourneyShell.tsx  ← shared header + step rail + page transitions
+  CopilotPanel.tsx  ← chat UI: streaming, rich tool cards, mic, mobile drawer
+
+scripts/ingest-knowledge.mjs        ← Exa → chunks → data/knowledge.json
+templates/ihcs/manual-template.html ← the approved manual template
 ```
 
 ---
 
-## 🧪 Testing
+## 🔬 How the AI Works
 
-### **Test JamAI Connection**
-
-```bash
-node scripts/test-pre-audit-connection.js
-```
-
-### **Verify Environment Variables**
-
-```bash
-node scripts/verify-all-configs.js
-```
-
-### **Run Unit Tests** (Coming Soon)
-
-```bash
-npm test
-```
+- **Document analysis** — on upload, `analyzeDocument` extracts structured facts and flags problems (e.g. catches an expired supplier cert or an unknown-status ingredient unprompted).
+- **Gap engine** — one structured call evaluates all 8 MPPHM requirements against extracted facts; the readiness score is computed **in code** from weighted verdicts.
+- **Drafting (generator–critic)** — draft → adversarial critique (coverage, citations, register, invented facts) → one revision. Citations pointing at non-existent files are dropped in code.
+- **Copilot** — 8 tools: `listEvidence`, `getGapReport`, `runGapAnalysis`, `searchKnowledge`, `verifyCertificate` (Exa), `checkIngredient` (Exa), `listDrafts`, `draftSection`.
+- **RAG** — ~157 chunks from ~25 sources (JAKIM portal, MPPHM materials). BM25 keyword retrieval + query expansion ("got pork anot?" → babi, khinzir, porcine…). Every chunk carries `sourceUrl` + `fetchedAt` for provenance-honest citations.
+- **Voice** — mic button → MediaRecorder → `/api/voice/stt` → ElevenLabs Scribe → transcript sent as a chat message.
 
 ---
 
-## 🤝 Contributing
+## ⚠️ Known Caveats
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### **Quick Start for Contributors**
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **JamAI Base** - For providing the serverless AI infrastructure
-- **JAKIM** - For MPPHM 2020 halal certification standards
-- **Malaysian SMEs** - For their feedback and support
-- **EmbeddedLLM CodeFest** - For the opportunity to build this solution
-
----
-
-## 📞 Contact & Support
-
-- **GitHub:** [github.com/hmhhmm/AMANA](https://github.com/hmhhmm/AMANA)
-- **Issues:** [GitHub Issues](https://github.com/hmhhmm/AMANA/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/hmhhmm/AMANA/discussions)
+1. **Latency** — gap analysis ~1–4 min; a chapter draft ~2–4 min (reasoning model × multiple passes). The UI shows staged progress.
+2. **Verification is best-effort** — JAKIM's directory has no public API; Exa searches public records. The copilot is instructed to say "based on public records as of today". Final authority is JAKIM.
+3. **Persistence is demo-grade** — JSON files in `/data`, single-tenant, no auth. For multi-user, swap `lib/evidence/store.ts` for a DB.
+4. **ElevenLabs key is permission-scoped** — STT/TTS work; account reads don't.
+5. **Deployment** — Puppeteer needs `@sparticuz/chromium` or a queue on serverless (e.g. Vercel).
 
 ---
 
 ## 🌍 Scalability
 
-AMANA's architecture is designed for regional expansion:
+HalalBoleh's rubric-driven architecture is designed for regional expansion — the MPPHM rubric and knowledge base can be swapped per jurisdiction:
 
-- **Malaysia:** JAKIM (Current)
-- **Indonesia:** MUI (Planned)
-- **Singapore:** MUIS (Planned)
-- **Brunei:** BDMC (Planned)
-- **Global:** IHAF/WHC (Future)
+- **Malaysia:** JAKIM (current)
+- **Indonesia:** MUI (planned)
+- **Singapore:** MUIS (planned)
+- **Brunei:** BDMC (planned)
 
-Each country requires different documentation standards - our JamAI Base Knowledge Tables make this trivial to add.
+---
+
+## 📄 License
+
+Licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Grafilab** — LLM, OCR, and vision infrastructure
+- **Exa** — web verification and knowledge ingestion
+- **ElevenLabs** — voice transcription
+- **JAKIM** — MPPHM 2020 halal certification standards
+- **Malaysian SMEs** — for their feedback and support
 
 ---
 
@@ -475,8 +222,6 @@ Each country requires different documentation standards - our JamAI Base Knowled
 
 **Built with ❤️ for Malaysian SMEs**
 
-🌙 **AMANA** - Making halal certification accessible to everyone
-
-[Documentation](QUICKSTART.md) • [Architecture](PROJECT_STRUCTURE.md) • [Live Demo](#)
+🌙 **HalalBoleh** — Making halal certification accessible to everyone
 
 </div>
