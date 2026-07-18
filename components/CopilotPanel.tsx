@@ -50,7 +50,7 @@ function SourceList({ sources }: { sources: { title?: string; url?: string; sour
           href={s.url}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-1.5 text-[10px] text-[#2D4A3E]/60 hover:text-[#2D4A3E] bg-white rounded-lg px-2 py-1 border border-[#2D4A3E]/10 truncate"
+          className="flex items-center gap-1.5 text-[10px] text-[#173127]/60 hover:text-[#173127] bg-white rounded-lg px-2 py-1 border border-[#173127]/10 truncate"
         >
           <ExternalLink className="w-3 h-3 shrink-0" />
           <span className="truncate">{s.title || s.url}</span>
@@ -73,7 +73,7 @@ function ToolCard({ type, state, output }: { type: string; state: string; output
       const score = (output as any)?.readinessScore
       if (typeof score === 'number') {
         detail = (
-          <p className="mt-1 text-[10px] font-bold text-[#2D4A3E]">
+          <p className="mt-1 text-[10px] font-bold text-[#173127]">
             Readiness: {score}%
           </p>
         )
@@ -81,7 +81,7 @@ function ToolCard({ type, state, output }: { type: string; state: string; output
     } else if (type === 'tool-draftSection') {
       const o = output as any
       detail = (
-        <p className="mt-1 text-[10px] text-[#2D4A3E]/60">
+        <p className="mt-1 text-[10px] text-[#173127]/60">
           BAB {o?.chapterNumber} saved · {o?.citations?.length ?? 0} citations ·{' '}
           {o?.missingInfo?.length ?? 0} info needed
         </p>
@@ -92,12 +92,12 @@ function ToolCard({ type, state, output }: { type: string; state: string; output
   return (
     <div
       className={`rounded-xl px-3 py-2 border text-xs
-        ${done ? 'bg-[#C5E86C]/15 border-[#C5E86C]/50' : 'bg-white border-[#2D4A3E]/10'}`}
+        ${done ? 'bg-[#C5E86C]/15 border-[#C5E86C]/50' : 'bg-white border-[#173127]/10'}`}
     >
-      <div className="flex items-center gap-2 text-[#2D4A3E]/80 font-semibold">
+      <div className="flex items-center gap-2 text-[#173127]/80 font-semibold">
         {done ? <Icon className="w-3.5 h-3.5" /> : <Loader2 className="w-3.5 h-3.5 animate-spin" />}
         {meta.label}
-        {done && <span className="text-[#2D4A3E]/40 ml-auto">✓</span>}
+        {done && <span className="text-[#173127]/40 ml-auto">✓</span>}
       </div>
       {detail}
     </div>
@@ -185,9 +185,9 @@ export default function CopilotPanel() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 bg-[#2D4A3E] text-white px-4 py-3 rounded-full shadow-xl hover:bg-[#3a5d4f] transition"
+            className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#173127] px-4 py-3 text-white shadow-[0_18px_45px_rgba(23,49,39,0.22)] transition hover:bg-[#214437]"
           >
-            <Bot className="w-5 h-5 text-[#C5E86C]" />
+            <Bot className="w-5 h-5 text-[#3DEB52]" />
             <span className="text-sm font-semibold">Ask HalalBoleh</span>
           </motion.button>
         )}
@@ -200,36 +200,36 @@ export default function CopilotPanel() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 40, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed inset-0 z-50 lg:z-20 lg:inset-auto lg:sticky lg:top-0 bg-white flex flex-col
-              lg:w-96 lg:shrink-0 lg:border-l lg:border-[#2D4A3E]/10 lg:h-screen"
+            className="fixed inset-0 z-50 flex flex-col bg-white lg:inset-auto lg:sticky lg:top-0 lg:z-20
+              lg:h-screen lg:w-96 lg:shrink-0 lg:border-l lg:border-[#173127]/10"
           >
-            <header className="px-4 py-3 border-b border-[#2D4A3E]/10 flex items-center justify-between bg-white">
+            <header className="flex items-center justify-between border-b border-[#173127]/10 bg-white/85 px-4 py-3 backdrop-blur-xl">
               <div className="flex items-center gap-2.5">
-                <span className="w-9 h-9 rounded-xl bg-[#2D4A3E] text-[#C5E86C] flex items-center justify-center">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#173127] text-[#3DEB52] shadow-[0_10px_24px_rgba(23,49,39,0.14)]">
                   <Bot className="w-4.5 h-4.5" />
                 </span>
                 <div>
-                  <p className="text-sm font-bold text-[#2D4A3E]">HalalBoleh Copilot</p>
-                  <p className="text-[10px] text-[#2D4A3E]/50">EN / BM / Manglish boleh!</p>
+                  <p className="text-sm font-bold text-[#173127]">HalalBoleh Copilot</p>
+                  <p className="text-[10px] text-[#173127]/50">EN / BM / Manglish boleh!</p>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-8 h-8 rounded-full hover:bg-[#F5F1E8] flex items-center justify-center text-[#2D4A3E]/50 hover:text-[#2D4A3E] transition"
+                className="flex h-8 w-8 items-center justify-center rounded-full text-[#173127]/50 transition hover:bg-[#ECFFEF] hover:text-[#173127]"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </header>
 
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-gradient-to-b from-white to-[#F5F1E8]/40">
+            <div className="flex-1 overflow-y-auto bg-[#FBFBFA] bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:36px_36px] p-4 flex flex-col gap-3">
               {messages.length === 0 && (
-                <div className="text-xs text-[#2D4A3E]/60 flex flex-col gap-2 mt-2">
-                  <p className="font-bold text-[#2D4A3E]">Try asking:</p>
+                <div className="text-xs text-[#173127]/60 flex flex-col gap-2 mt-2">
+                  <p className="font-bold text-[#173127]">Try asking:</p>
                   {SUGGESTIONS.map(q => (
                     <button
                       key={q}
                       onClick={() => sendMessage({ text: q })}
-                      className="text-left bg-white border border-[#2D4A3E]/10 hover:border-[#C5E86C] hover:bg-[#C5E86C]/10 rounded-xl px-3 py-2.5 text-[#2D4A3E] transition"
+                      className="text-left bg-white/85 border border-[#173127]/10 hover:border-[#3DEB52] hover:bg-[#ECFFEF] rounded-2xl px-3 py-2.5 text-[#173127] shadow-sm transition"
                     >
                       {q}
                     </button>
@@ -249,15 +249,15 @@ export default function CopilotPanel() {
                           key={i}
                           className={`rounded-2xl px-3.5 py-2.5 text-sm mb-1.5 ${
                             message.role === 'user'
-                              ? 'bg-[#2D4A3E] text-white rounded-br-md'
-                              : 'bg-white border border-[#2D4A3E]/10 text-[#2D4A3E] rounded-bl-md shadow-[0_1px_2px_rgba(45,74,62,0.05)]'
+                              ? 'bg-[#173127] text-white rounded-br-md'
+                              : 'bg-white/90 border border-[#173127]/10 text-[#173127] rounded-bl-md shadow-[0_10px_30px_rgba(23,49,39,0.05)]'
                           }`}
                         >
                           <div
                             className={`prose prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0 prose-headings:my-1.5 text-inherit ${
                               message.role === 'user'
                                 ? 'prose-invert'
-                                : 'prose-a:text-[#2D4A3E] prose-a:underline prose-headings:text-[#2D4A3E] prose-strong:text-[#2D4A3E]'
+                                : 'prose-a:text-[#173127] prose-a:underline prose-headings:text-[#173127] prose-strong:text-[#173127]'
                             }`}
                           >
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>{part.text}</ReactMarkdown>
@@ -279,14 +279,14 @@ export default function CopilotPanel() {
                 </div>
               ))}
               {busy && messages[messages.length - 1]?.role === 'user' && (
-                <div className="self-start flex items-center gap-2 text-xs text-[#2D4A3E]/50">
+                <div className="self-start flex items-center gap-2 text-xs text-[#173127]/50">
                   <Loader2 className="w-4 h-4 animate-spin" /> thinking…
                 </div>
               )}
               <div ref={bottomRef} />
             </div>
 
-            <form onSubmit={submit} className="p-3 border-t border-[#2D4A3E]/10 flex gap-2 bg-white">
+            <form onSubmit={submit} className="p-3 border-t border-[#173127]/10 flex gap-2 bg-white/90 backdrop-blur-xl">
               <input
                 value={input}
                 onChange={e => setInput(e.target.value)}
@@ -299,7 +299,7 @@ export default function CopilotPanel() {
                 disabled={busy || transcribing}
                 title="Speak in Manglish / BM / English"
                 className={`w-9 h-9 rounded-full flex items-center justify-center transition disabled:opacity-40 shrink-0
-                  ${recording ? 'bg-red-500 text-white animate-pulse' : 'bg-[#F5F1E8] text-[#2D4A3E] hover:bg-[#C5E86C]/40'}`}
+                  ${recording ? 'bg-red-500 text-white animate-pulse' : 'bg-[#ECFFEF] text-[#173127] hover:bg-[#DFFFDA]'}`}
               >
                 {transcribing ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -312,7 +312,7 @@ export default function CopilotPanel() {
               <button
                 type="submit"
                 disabled={busy || !input.trim()}
-                className="w-9 h-9 rounded-full bg-[#2D4A3E] text-white flex items-center justify-center disabled:opacity-40 hover:bg-[#3a5d4f] transition shrink-0"
+                className="w-9 h-9 rounded-full bg-[#173127] text-white flex items-center justify-center disabled:opacity-40 hover:bg-[#214437] transition shrink-0"
               >
                 {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
               </button>

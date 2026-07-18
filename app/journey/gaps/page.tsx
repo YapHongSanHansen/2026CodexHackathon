@@ -65,7 +65,7 @@ function ScoreRing({ score }: { score: number }) {
   const color = score >= 85 ? '#16a34a' : score >= 60 ? '#d97706' : '#dc2626'
   return (
     <svg viewBox="0 0 120 120" className="w-36 h-36">
-      <circle cx="60" cy="60" r={r} fill="none" stroke="#2D4A3E12" strokeWidth="11" />
+      <circle cx="60" cy="60" r={r} fill="none" stroke="#17312712" strokeWidth="11" />
       <motion.circle
         cx="60"
         cy="60"
@@ -80,10 +80,10 @@ function ScoreRing({ score }: { score: number }) {
         transition={{ duration: 0.9, ease: 'easeOut' }}
         transform="rotate(-90 60 60)"
       />
-      <text x="60" y="58" textAnchor="middle" fill="#2D4A3E" fontSize="26" fontWeight="bold">
+      <text x="60" y="58" textAnchor="middle" fill="#173127" fontSize="26" fontWeight="bold">
         {score}%
       </text>
-      <text x="60" y="76" textAnchor="middle" fill="#2D4A3E" fontSize="10" opacity="0.55">
+      <text x="60" y="76" textAnchor="middle" fill="#173127" fontSize="10" opacity="0.55">
         readiness
       </text>
     </svg>
@@ -149,9 +149,9 @@ export default function GapReportPage() {
 
         {running && (
           <div className="v2-card p-6 flex flex-col items-center gap-3 text-center">
-            <Loader2 className="w-6 h-6 animate-spin text-[#2D4A3E]" />
-            <p className="text-sm font-semibold text-[#2D4A3E]">{RUNNING_STAGES[stage]}</p>
-            <p className="text-xs text-[#2D4A3E]/50">
+            <Loader2 className="w-6 h-6 animate-spin text-[#173127]" />
+            <p className="text-sm font-semibold text-[#173127]">{RUNNING_STAGES[stage]}</p>
+            <p className="text-xs text-[#173127]/50">
               The AI auditor reviews all 8 requirements — takes about a minute
             </p>
             <div className="w-full max-w-sm flex flex-col gap-2 mt-2">
@@ -164,11 +164,11 @@ export default function GapReportPage() {
 
         {!report && !running && !error && (
           <div className="v2-card p-10 flex flex-col items-center gap-3 text-center">
-            <span className="w-14 h-14 rounded-2xl bg-[#F5F1E8] flex items-center justify-center">
-              <ClipboardCheck className="w-7 h-7 text-[#2D4A3E]/50" />
+            <span className="w-14 h-14 rounded-2xl bg-[#FBFBFA] flex items-center justify-center">
+              <ClipboardCheck className="w-7 h-7 text-[#173127]/50" />
             </span>
-            <h2 className="font-semibold text-[#2D4A3E]">No report yet</h2>
-            <p className="text-sm text-[#2D4A3E]/60 max-w-sm">
+            <h2 className="font-semibold text-[#173127]">No report yet</h2>
+            <p className="text-sm text-[#173127]/60 max-w-sm">
               Upload your documents in the Evidence Locker, then run the analysis to see exactly
               where you stand against MPPHM 2020.
             </p>
@@ -189,12 +189,12 @@ export default function GapReportPage() {
                     : 'Not ready yet — here is your action plan'}
                 </h2>
                 {report.nextBestAction && (
-                  <p className="mt-2 text-sm bg-[#C5E86C]/25 border border-[#C5E86C] rounded-xl p-3 text-[#2D4A3E] leading-relaxed">
+                  <p className="mt-2 text-sm bg-[#C5E86C]/25 border border-[#C5E86C] rounded-xl p-3 text-[#173127] leading-relaxed">
                     <Sparkles className="w-3.5 h-3.5 inline mr-1 -mt-0.5" />
                     <strong>Next best action:</strong> {report.nextBestAction}
                   </p>
                 )}
-                <p className="mt-2 text-xs text-[#2D4A3E]/45">
+                <p className="mt-2 text-xs text-[#173127]/45">
                   Generated {new Date(report.generatedAt).toLocaleString()}
                 </p>
               </div>
@@ -219,23 +219,23 @@ export default function GapReportPage() {
                           <Icon className="w-3.5 h-3.5" /> {style.label}
                         </span>
                         <div>
-                          <h3 className="font-semibold text-[#2D4A3E] text-sm">{r.title}</h3>
-                          <p className="text-xs text-[#2D4A3E]/50">{r.section}</p>
+                          <h3 className="font-semibold text-[#173127] text-sm">{r.title}</h3>
+                          <p className="text-xs text-[#173127]/50">{r.section}</p>
                         </div>
                       </div>
                       {r.reasons.length > 0 && (
-                        <ul className="mt-3 text-xs text-[#2D4A3E]/70 flex flex-col gap-1">
+                        <ul className="mt-3 text-xs text-[#173127]/70 flex flex-col gap-1">
                           {r.reasons.map((reason, j) => (
                             <li key={j} className="flex gap-1.5">
-                              <span className="text-[#2D4A3E]/30 shrink-0">•</span> {reason}
+                              <span className="text-[#173127]/30 shrink-0">•</span> {reason}
                             </li>
                           ))}
                         </ul>
                       )}
                       {r.actions.length > 0 && (
-                        <div className="mt-3 bg-[#F5F1E8] rounded-xl p-3">
-                          <p className="text-xs font-bold text-[#2D4A3E] mb-1">To fix</p>
-                          <ul className="text-xs text-[#2D4A3E]/75 flex flex-col gap-1">
+                        <div className="mt-3 bg-[#FBFBFA] rounded-xl p-3">
+                          <p className="text-xs font-bold text-[#173127] mb-1">To fix</p>
+                          <ul className="text-xs text-[#173127]/75 flex flex-col gap-1">
                             {r.actions.map((action, j) => (
                               <li key={j} className="flex gap-1.5">
                                 <span className="shrink-0">→</span> {action}

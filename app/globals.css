@@ -3,21 +3,27 @@
 @tailwind utilities;
 
 /* ============================================
-   PADU THEME - GLOBAL STYLES
+   PADU
+    THEME - GLOBAL STYLES
    Colors: Cream #F5F1E8, Lime #C5E86C, Dark Green #2D4A3E
    ============================================ */
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-[#F5F1E8] text-gray-900;
+    @apply bg-white text-gray-900;
+    font-family: var(--font-poppins), system-ui, sans-serif;
   }
 
   .font-serif {
-    font-family: var(--font-playfair), Georgia, serif;
+    font-family: var(--font-poppins), Georgia, serif;
   }
 
   .font-sans {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-poppins), system-ui, sans-serif;
   }
 }
 
@@ -58,7 +64,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-[#F5F1E8];
+  @apply bg-[#FBFBFA];
 }
 
 ::-webkit-scrollbar-thumb {
@@ -75,7 +81,7 @@
 
 @layer components {
   /* Backgrounds */
-  .bg-padu-cream { @apply bg-[#F5F1E8]; }
+  .bg-padu-cream { @apply bg-[#FBFBFA]; }
   .bg-padu-dark { @apply bg-[#2D4A3E]; }
   .bg-padu-lime { @apply bg-[#C5E86C]; }
   .bg-padu-olive { @apply bg-[#8B7355]; }
@@ -86,7 +92,7 @@
 
   /* Section Backgrounds */
   .section-cream {
-    @apply bg-[#F5F1E8];
+    @apply bg-[#FBFBFA];
   }
 
   .section-white {
@@ -177,11 +183,11 @@
 
 @layer components {
   .v2-card {
-    @apply bg-white rounded-2xl border border-[#2D4A3E]/10 shadow-[0_1px_3px_rgba(45,74,62,0.06)];
+    @apply bg-white/90 backdrop-blur-xl rounded-[28px] border border-[#173127]/10 shadow-[0_20px_60px_rgba(23,49,39,0.06)];
   }
 
   .v2-card-hover {
-    @apply transition-all duration-200 hover:border-[#C5E86C] hover:shadow-[0_6px_20px_rgba(45,74,62,0.10)] hover:-translate-y-0.5;
+    @apply transition-all duration-200 hover:border-[#3DEB52] hover:shadow-[0_18px_45px_rgba(61,235,82,0.12)] hover:-translate-y-0.5;
   }
 
   .v2-btn {
@@ -189,15 +195,19 @@
   }
 
   .v2-btn-primary {
-    @apply v2-btn bg-[#2D4A3E] text-white hover:bg-[#3a5d4f] active:scale-[0.98] shadow-sm;
+    @apply v2-btn bg-[#173127] text-white hover:bg-[#214437] active:scale-[0.98] shadow-[0_12px_30px_rgba(23,49,39,0.14)];
   }
 
   .v2-btn-accent {
-    @apply v2-btn bg-[#C5E86C] text-[#2D4A3E] hover:bg-[#d3f080] active:scale-[0.98] shadow-sm;
+    @apply v2-btn bg-[#3DEB52] text-[#173127] hover:bg-[#7DFF73] active:scale-[0.98] shadow-[0_10px_28px_rgba(61,235,82,0.16)];
+  }
+
+  .v2-btn-secondary {
+    @apply v2-btn border border-[#173127]/10 bg-white/80 text-[#173127] hover:border-[#3DEB52] hover:bg-[#ECFFEF] active:scale-[0.98] shadow-sm;
   }
 
   .v2-btn-ghost {
-    @apply v2-btn border border-[#2D4A3E]/15 text-[#2D4A3E]/70 hover:border-[#C5E86C] hover:text-[#2D4A3E] bg-white;
+    @apply v2-btn border border-[#173127]/10 text-[#173127]/70 hover:border-[#3DEB52] hover:text-[#173127] bg-white/80;
   }
 
   .v2-chip {
@@ -205,12 +215,12 @@
   }
 
   .v2-title {
-    font-family: var(--font-playfair), Georgia, serif;
-    @apply text-[#2D4A3E] font-bold tracking-tight;
+    font-family: var(--font-poppins), system-ui, sans-serif;
+    @apply text-[#173127] font-bold tracking-tight;
   }
 
   .v2-input {
-    @apply bg-[#F5F1E8] rounded-full px-4 py-2 text-sm text-[#2D4A3E] outline-none focus:ring-2 focus:ring-[#C5E86C] placeholder:text-[#2D4A3E]/40;
+    @apply bg-[#FBFBFA] rounded-full border border-[#173127]/10 px-4 py-2 text-sm text-[#173127] outline-none focus:ring-2 focus:ring-[#3DEB52] placeholder:text-[#173127]/40;
   }
 }
 
@@ -220,7 +230,7 @@
 }
 
 .v2-skeleton {
-  background: linear-gradient(90deg, #eee9dd 25%, #f7f3ea 50%, #eee9dd 75%);
+  background: linear-gradient(90deg, #eaf7f6 25%, #f8ffff 50%, #eaf7f6 75%);
   background-size: 800px 100%;
   animation: v2-shimmer 1.4s infinite linear;
 }

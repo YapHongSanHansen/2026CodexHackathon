@@ -83,7 +83,7 @@ export default function PackPage() {
     >
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex flex-col gap-5 pb-10">
         <div className="v2-card p-5">
-          <h2 className="font-bold text-[#2D4A3E] text-sm mb-3">Pre-flight checklist</h2>
+          <h2 className="font-bold text-[#173127] text-sm mb-3">Pre-flight checklist</h2>
           <ul className="flex flex-col gap-2.5 text-sm">
             {checks.map((c, i) => (
               <li key={i} className="flex items-center gap-2.5">
@@ -92,23 +92,23 @@ export default function PackPage() {
                 ) : (
                   <AlertTriangle className="w-4.5 h-4.5 text-amber-500 shrink-0" />
                 )}
-                <span className="text-[#2D4A3E]/80">{c.label}</span>
+                <span className="text-[#173127]/80">{c.label}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-[#2D4A3E]/45">
+          <p className="mt-3 text-xs text-[#173127]/45">
             You can compile anytime — warnings just mean the pack will contain placeholders or a
             low score.
           </p>
         </div>
 
         <div className="v2-card p-8 flex flex-col items-center gap-4 text-center">
-          <span className="w-16 h-16 rounded-2xl bg-[#F5F1E8] flex items-center justify-center">
-            <FolderArchive className="w-8 h-8 text-[#2D4A3E]" />
+          <span className="w-16 h-16 rounded-2xl bg-[#FBFBFA] flex items-center justify-center">
+            <FolderArchive className="w-8 h-8 text-[#173127]" />
           </span>
           <div>
             <h2 className="v2-title text-lg">One zip, audit-ready</h2>
-            <p className="text-xs text-[#2D4A3E]/55 mt-1 max-w-sm">
+            <p className="text-xs text-[#173127]/55 mt-1 max-w-sm">
               IHCS manual PDF (from your approved template) + gap report with action items +
               evidence index with provenance + your original documents.
             </p>
@@ -128,11 +128,11 @@ export default function PackPage() {
               <a
                 href={pack.url}
                 download
-                className="inline-flex items-center gap-2 font-bold text-[#2D4A3E] hover:underline"
+                className="inline-flex items-center gap-2 font-bold text-[#173127] hover:underline"
               >
                 <Download className="w-4 h-4" /> {pack.fileName}
               </a>
-              <ul className="mt-2 text-xs text-[#2D4A3E]/70 grid grid-cols-1 sm:grid-cols-2 gap-1">
+              <ul className="mt-2 text-xs text-[#173127]/70 grid grid-cols-1 sm:grid-cols-2 gap-1">
                 {pack.contents.map(c => (
                   <li key={c} className="flex items-center gap-1.5">
                     <FileText className="w-3 h-3 shrink-0" /> {c}

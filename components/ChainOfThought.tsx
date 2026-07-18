@@ -9,7 +9,7 @@ interface ChainOfThoughtProps {
 
 export default function ChainOfThought({ thoughts, language }: ChainOfThoughtProps) {
   return (
-    <div className="bg-gradient-to-br from-[#2D4A3E] to-[#3D5A4E] rounded-2xl p-6 shadow-lg">
+    <div className="bg-gradient-to-br from-[#173127] to-[#3D5A4E] rounded-2xl p-6 shadow-lg">
       <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
         <Sparkles className="w-5 h-5 text-[#C5E86C]" />
         {language === 'bm' ? 'Penaakulan AI' : 'AI Reasoning'}

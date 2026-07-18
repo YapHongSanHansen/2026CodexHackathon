@@ -48,7 +48,7 @@ function DocRow({ doc, onDelete }: { doc: Doc; onDelete: (id: string) => void })
     <motion.div
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-[#F5F1E8] rounded-xl p-2.5 text-xs"
+      className="bg-[#FBFBFA] rounded-xl p-2.5 text-xs"
     >
       <div className="flex items-start gap-2">
         {doc.status === 'analyzed' && issueCount === 0 && (
@@ -59,10 +59,10 @@ function DocRow({ doc, onDelete }: { doc: Doc; onDelete: (id: string) => void })
         )}
         {doc.status === 'error' && <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />}
         {(doc.status === 'uploaded' || doc.status === 'analyzing') && (
-          <Loader2 className="w-4 h-4 animate-spin text-[#2D4A3E]/50 shrink-0 mt-0.5" />
+          <Loader2 className="w-4 h-4 animate-spin text-[#173127]/50 shrink-0 mt-0.5" />
         )}
         <button className="flex-1 min-w-0 text-left" onClick={() => setExpanded(!expanded)}>
-          <p className="font-semibold text-[#2D4A3E] truncate flex items-center gap-1">
+          <p className="font-semibold text-[#173127] truncate flex items-center gap-1">
             <FileText className="w-3 h-3 shrink-0" /> {doc.fileName}
           </p>
           {issueCount > 0 && !expanded && (
@@ -73,7 +73,7 @@ function DocRow({ doc, onDelete }: { doc: Doc; onDelete: (id: string) => void })
         </button>
         <button
           onClick={() => onDelete(doc.id)}
-          className="text-[#2D4A3E]/30 hover:text-red-500 transition"
+          className="text-[#173127]/30 hover:text-red-500 transition"
           title="Remove"
         >
           <Trash2 className="w-3.5 h-3.5" />
@@ -87,7 +87,7 @@ function DocRow({ doc, onDelete }: { doc: Doc; onDelete: (id: string) => void })
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            {doc.facts?.summary && <p className="text-[#2D4A3E]/70 mt-2">{doc.facts.summary}</p>}
+            {doc.facts?.summary && <p className="text-[#173127]/70 mt-2">{doc.facts.summary}</p>}
             {issueCount > 0 && (
               <ul className="mt-1.5 text-amber-700 flex flex-col gap-1">
                 {doc.issues!.map((issue, i) => (
@@ -130,28 +130,28 @@ function CategoryZone({
       <div className="flex items-center gap-2.5">
         <span
           className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0
-            ${docs.length > 0 ? (hasIssues ? 'bg-amber-100 text-amber-600' : 'bg-[#C5E86C]/50 text-[#2D4A3E]') : 'bg-[#F5F1E8] text-[#2D4A3E]/50'}`}
+            ${docs.length > 0 ? (hasIssues ? 'bg-amber-100 text-amber-600' : 'bg-[#C5E86C]/50 text-[#173127]') : 'bg-[#FBFBFA] text-[#173127]/50'}`}
         >
           <Icon className="w-4.5 h-4.5" />
         </span>
-        <h3 className="font-semibold text-[#2D4A3E] text-sm flex-1">{label}</h3>
+        <h3 className="font-semibold text-[#173127] text-sm flex-1">{label}</h3>
         {docs.length > 0 && (
-          <span className="v2-chip bg-[#C5E86C]/30 border-[#C5E86C]/60 text-[#2D4A3E]">{docs.length}</span>
+          <span className="v2-chip bg-[#C5E86C]/30 border-[#C5E86C]/60 text-[#173127]">{docs.length}</span>
         )}
       </div>
 
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-xl px-4 py-5 text-center text-xs cursor-pointer transition-all
-          ${isDragActive ? 'border-[#C5E86C] bg-[#C5E86C]/15 scale-[1.01]' : 'border-[#2D4A3E]/15 hover:border-[#C5E86C] hover:bg-[#C5E86C]/5'}`}
+          ${isDragActive ? 'border-[#C5E86C] bg-[#C5E86C]/15 scale-[1.01]' : 'border-[#173127]/15 hover:border-[#C5E86C] hover:bg-[#C5E86C]/5'}`}
       >
         <input {...getInputProps()} />
         {uploading ? (
-          <span className="inline-flex items-center gap-2 text-[#2D4A3E]/70 font-medium">
+          <span className="inline-flex items-center gap-2 text-[#173127]/70 font-medium">
             <Loader2 className="w-4 h-4 animate-spin" /> Analyzing with AI…
           </span>
         ) : (
-          <span className="inline-flex items-center gap-2 text-[#2D4A3E]/50">
+          <span className="inline-flex items-center gap-2 text-[#173127]/50">
             <UploadCloud className="w-4 h-4" /> Drop file or click
           </span>
         )}
@@ -219,11 +219,11 @@ export default function EvidenceLockerPage() {
       }
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
-        <div className="flex items-center gap-4 mb-4 text-xs text-[#2D4A3E]/60">
-          <span className="v2-chip bg-white border-[#2D4A3E]/10 text-[#2D4A3E]/70">
+        <div className="flex items-center gap-4 mb-4 text-xs text-[#173127]/60">
+          <span className="v2-chip bg-white border-[#173127]/10 text-[#173127]/70">
             {analyzedCount}/{docs.length} analyzed
           </span>
-          <span className="v2-chip bg-white border-[#2D4A3E]/10 text-[#2D4A3E]/70">
+          <span className="v2-chip bg-white border-[#173127]/10 text-[#173127]/70">
             {coveredCategories}/{CATEGORIES.length} categories covered
           </span>
         </div>
