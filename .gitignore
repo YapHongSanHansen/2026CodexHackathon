@@ -39,3 +39,6 @@ next-env.d.ts
 
 # Generated audit packs
 /public/generated/pack/
+
+.vercel
+.env*
