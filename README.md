@@ -11,7 +11,7 @@
 ---
 
 ## SLIDES LINK
-https://www.canva.com/design/DAG5KB75PwE/pYzvfDQ8524BDjRDIAS-8A/edit?utm_content=DAG5KB75PwE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+https://canva.link/db22l4g9ry3oat8
 
 ## DEMO VIDEO
 https://youtu.be/uRgI1-0FNyQ?si=SGevxt4EFFQgfvTE
