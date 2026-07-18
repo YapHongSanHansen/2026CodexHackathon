@@ -1,0 +1,54 @@
+<svg viewBox="0 0 920 530" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, system-ui, sans-serif">
+  <defs>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2dd4bf"/>
+    </marker>
+  </defs>
+  <rect width="920" height="530" rx="16" fill="#0d1424"/>
+  <text x="460" y="42" text-anchor="middle" fill="#e2e8f0" font-size="23" font-weight="700">ToolForge = Composio for the software Composio can't touch</text>
+
+  <!-- agent on top -->
+  <rect x="300" y="66" width="320" height="74" rx="13" fill="#131c30" stroke="#26344f"/>
+  <text x="460" y="100" text-anchor="middle" fill="#e2e8f0" font-size="17" font-weight="700">Your AI agent</text>
+  <text x="460" y="124" text-anchor="middle" fill="#94a3b8" font-size="13.5">Codex · Cursor · Claude Code</text>
+
+  <!-- arrows providers -> agent (MCP) -->
+  <line x1="230" y1="230" x2="392" y2="144" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#t)"/>
+  <line x1="690" y1="230" x2="528" y2="144" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#t)"/>
+  <text x="300" y="196" fill="#5eead4" font-size="12" font-weight="700">MCP</text>
+  <text x="608" y="196" fill="#5eead4" font-size="12" font-weight="700">MCP</text>
+
+  <!-- composio provider -->
+  <rect x="70" y="232" width="320" height="92" rx="13" fill="#131c30" stroke="#3b5168"/>
+  <text x="230" y="266" text-anchor="middle" fill="#cbd5e1" font-size="19" font-weight="700">Composio</text>
+  <text x="230" y="294" text-anchor="middle" fill="#94a3b8" font-size="13.5">wraps an app's existing API</text>
+  <text x="230" y="313" text-anchor="middle" fill="#64748b" font-size="12">+ managed OAuth, cloud-hosted</text>
+
+  <!-- toolforge provider -->
+  <rect x="530" y="232" width="320" height="92" rx="13" fill="#10261f" stroke="#14b8a6" stroke-width="2"/>
+  <text x="690" y="266" text-anchor="middle" fill="#5eead4" font-size="19" font-weight="700">ToolForge</text>
+  <text x="690" y="294" text-anchor="middle" fill="#cbd5e1" font-size="13.5">watches the GUI once, then replays</text>
+  <text x="690" y="313" text-anchor="middle" fill="#94a3b8" font-size="12">no API needed · runs where the app runs</text>
+
+  <!-- app-source boxes -->
+  <rect x="70" y="356" width="320" height="138" rx="13" fill="#0f1626" stroke="#26344f"/>
+  <text x="230" y="382" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="700">Apps that ALREADY have an API</text>
+  <g fill="#cbd5e1" font-size="13">
+    <rect x="90" y="396" width="74" height="28" rx="8" fill="#1b2740"/><text x="127" y="415" text-anchor="middle">Gmail</text>
+    <rect x="174" y="396" width="68" height="28" rx="8" fill="#1b2740"/><text x="208" y="415" text-anchor="middle">Slack</text>
+    <rect x="252" y="396" width="80" height="28" rx="8" fill="#1b2740"/><text x="292" y="415" text-anchor="middle">GitHub</text>
+    <rect x="90" y="434" width="80" height="28" rx="8" fill="#1b2740"/><text x="130" y="453" text-anchor="middle">Notion</text>
+    <rect x="180" y="434" width="106" height="28" rx="8" fill="#1b2740"/><text x="233" y="453" text-anchor="middle">Salesforce</text>
+  </g>
+
+  <rect x="530" y="356" width="320" height="138" rx="13" fill="#1a130a" stroke="#5b4420"/>
+  <text x="690" y="382" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">Apps with NO API / no docs</text>
+  <g fill="#e2e8f0" font-size="13">
+    <rect x="548" y="396" width="100" height="28" rx="8" fill="#2a1d10"/><text x="598" y="415" text-anchor="middle">Legacy ERP</text>
+    <rect x="658" y="396" width="110" height="28" rx="8" fill="#2a1d10"/><text x="713" y="415" text-anchor="middle">Desktop POS</text>
+    <rect x="548" y="434" width="128" height="28" rx="8" fill="#2a1d10"/><text x="612" y="453" text-anchor="middle">Old accounting</text>
+    <rect x="686" y="434" width="120" height="28" rx="8" fill="#2a1d10"/><text x="746" y="453" text-anchor="middle">Internal LOB app</text>
+  </g>
+
+  <text x="460" y="516" text-anchor="middle" fill="#94a3b8" font-size="13.5">Same shape (tools inside your agent). Opposite half of the market — ToolForge serves what has no API.</text>
+</svg>

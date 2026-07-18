@@ -1,0 +1,51 @@
+<svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, system-ui, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2dd4bf"/>
+    </marker>
+    <marker id="are" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+  <rect width="900" height="500" rx="16" fill="#0d1424"/>
+  <text x="450" y="44" text-anchor="middle" fill="#e2e8f0" font-size="25" font-weight="700">The vision: install once &#8594; your tools appear inside your AI agent</text>
+  <text x="450" y="72" text-anchor="middle" fill="#94a3b8" font-size="15">"Like node.js — people just install and go", and the tools show up where they already work</text>
+
+  <!-- install -->
+  <rect x="28" y="206" width="200" height="100" rx="12" fill="#131c30" stroke="#26344f"/>
+  <text x="128" y="238" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700">1 · Install once</text>
+  <text x="128" y="266" text-anchor="middle" fill="#5eead4" font-size="13" font-family="monospace">npx toolforge</text>
+  <text x="128" y="288" text-anchor="middle" fill="#94a3b8" font-size="13">or  /plugin install</text>
+
+  <!-- arrow install -> toolforge -->
+  <line x1="232" y1="256" x2="294" y2="256" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#ar)"/>
+
+  <!-- toolforge center -->
+  <rect x="300" y="196" width="250" height="120" rx="14" fill="#10261f" stroke="#14b8a6" stroke-width="2"/>
+  <text x="425" y="238" text-anchor="middle" fill="#5eead4" font-size="22" font-weight="700">ToolForge</text>
+  <text x="425" y="264" text-anchor="middle" fill="#cbd5e1" font-size="14">MCP server</text>
+  <text x="425" y="290" text-anchor="middle" fill="#94a3b8" font-size="13">exposes your real tools</text>
+
+  <!-- agents -->
+  <rect x="636" y="96"  width="232" height="64" rx="12" fill="#131c30" stroke="#26344f"/>
+  <text x="752" y="134" text-anchor="middle" fill="#e2e8f0" font-size="17" font-weight="600">Codex</text>
+  <rect x="636" y="216" width="232" height="64" rx="12" fill="#131c30" stroke="#26344f"/>
+  <text x="752" y="254" text-anchor="middle" fill="#e2e8f0" font-size="17" font-weight="600">Cursor</text>
+  <rect x="636" y="336" width="232" height="64" rx="12" fill="#131c30" stroke="#26344f"/>
+  <text x="752" y="374" text-anchor="middle" fill="#e2e8f0" font-size="17" font-weight="600">Claude Code</text>
+
+  <!-- arrows toolforge -> agents (labelled MCP) -->
+  <line x1="552" y1="238" x2="632" y2="132" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#ar)"/>
+  <line x1="552" y1="256" x2="632" y2="248" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#ar)"/>
+  <line x1="552" y1="274" x2="632" y2="364" stroke="#2dd4bf" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="600" y="243" fill="#5eead4" font-size="12" font-weight="700">MCP</text>
+
+  <!-- toolforge -> real app -->
+  <line x1="425" y1="316" x2="425" y2="372" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#are)"/>
+  <text x="437" y="350" fill="#fbbf24" font-size="12" font-weight="700">controls</text>
+  <rect x="300" y="374" width="250" height="80" rx="12" fill="#2a1d10" stroke="#f59e0b"/>
+  <text x="425" y="406" text-anchor="middle" fill="#fbbf24" font-size="16" font-weight="700">Your real legacy app</text>
+  <text x="425" y="430" text-anchor="middle" fill="#cbd5e1" font-size="13">records once · replays on call</text>
+
+  <text x="450" y="486" text-anchor="middle" fill="#94a3b8" font-size="13.5">MCP is the one standard Codex, Cursor &amp; Claude Code all speak — build it once, it works in all three.</text>
+</svg>

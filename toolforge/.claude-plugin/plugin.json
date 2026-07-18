@@ -1,0 +1,5 @@
+{
+  "name": "toolforge",
+  "version": "0.1.0",
+  "description": "Call legacy desktop apps (no API) as tools, via a ToolForge-generated MCP server."
+}
